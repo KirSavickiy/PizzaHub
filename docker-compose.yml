@@ -1,0 +1,52 @@
+services:
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./:/var/www/
+      - ./_docker/nginx/conf.d/:/etc/nginx/conf.d/
+    ports:
+      - "8081:80"
+    depends_on:
+      - app
+    container_name: app_nginx
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost" ]
+      interval: 30s
+      retries: 3
+    networks:
+      - app_network
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: root
+        POSTGRES_DB: postgres
+    container_name: postgres_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+        - "5432:5432"
+    networks:
+      - app_network
+
+  app:
+    build:
+        context: .
+        dockerfile: _docker/app/Dockerfile
+    volumes:
+      - ./:/var/www/
+    container_name: app
+    depends_on:
+      - db
+    command: /bin/sh -c "chmod -R 775 /var/www/storage /var/www/bootstrap/cache && php-fpm"
+    networks:
+      - app_network
+
+volumes:
+  postgres_data:
+
+networks:
+  app_network:
+    driver: bridge
