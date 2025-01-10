@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,7 +20,16 @@ class ProductItemFactory extends Factory
         return [
             'price' => $this->faker->randomFloat(2, 100, 1000),
             'stock' => $this->faker->numberBetween(0, 100),
-
+            'product_id' => Product::pluck('id')->random(),
         ];
     }
+
+    public function pizzas(): static
+    {
+        return $this->state(fn () => [
+            'size'=> $this->faker->randomElement([20, 30, 35]),
+            'dough_type' => $this->faker->randomElement(['Тонкое', 'Традиционное']),
+        ]);
+    }
+
 }
