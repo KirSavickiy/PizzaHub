@@ -2,15 +2,34 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Laravel\Sanctum\HasApiTokens;
+use App\Models\Role;
 
-class User extends Model
+class User extends Authenticatable
 {
     use HasFactory;
+    use HasApiTokens;
+    use SoftDeletes;
+
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'email',
+        'password',
+        'phone',
+        'birth_date',
+        'role_id',
+    ];
+
+    protected $hidden = [
+        'password',
+    ];
     public function cart(): HasOne
     {
         return $this->hasOne(Cart::class);
@@ -34,5 +53,10 @@ class User extends Model
     public function orderStatuses(): HasMany
     {
         return $this->hasMany(OrderStatusHistory::class);
+    }
+
+    public static function getUserRoleId(): int
+    {
+        return Role::getUserRoleId();
     }
 }

@@ -13,4 +13,8 @@ class Role extends Model
     {
         return $this->hasMany(User::class);
     }
+    public static function getUserRoleId(): int
+    {
+        return self::where('name', 'user')->first()->id ?? 2;
+    }
 }

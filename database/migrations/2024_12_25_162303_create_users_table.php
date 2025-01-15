@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('phone')->unique();
             $table->date('birth_date')->nullable();
             $table->foreignId('role_id')->constrained();
+            $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
         });

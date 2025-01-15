@@ -18,6 +18,8 @@ RUN pecl install xdebug && \
     docker-php-ext-enable xdebug
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
+ENV PHP_IDE_CONFIG="serverName=localhost"
+
 RUN curl -sS https://getcomposer.org/installer | php -- \
     --filename=composer \
     --install-dir=/usr/local/bin

@@ -1,0 +1,10 @@
+POST http://localhost:8081/api/register
+Content-Type: application/json
+
+{
+  "first_name": "value1",
+  "email": "value2@gmail.com",
+  "phone": "3424234234234234",
+  "password": "password",
+  "password_confirmation": "password"
+}
