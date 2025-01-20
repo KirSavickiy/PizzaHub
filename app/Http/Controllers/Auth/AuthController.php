@@ -20,4 +20,9 @@ class AuthController extends Controller
     {
         return $action->handle($request);
     }
+
+    public function logout()
+    {
+        return [''];
+    }
 }

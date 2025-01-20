@@ -48,8 +48,4 @@ class RegisterRequest extends FormRequest
             'password.confirmed' => 'Password does not match',
         ];
     }
-    public  function loginData(): array
-    {
-        return $this->only(['email', 'password']);
-    }
 }
