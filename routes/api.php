@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\ProductController;
@@ -17,3 +17,7 @@ Route::get('/products/{id}', [ProductController::class, 'show']);
 
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/categories/{id}', [CategoryController::class, 'show']);
+
+Route::get('/cart', [CartController::class, 'index']);
+//Route::middleware('auth:sanctum')->get('/cart', [CartController::class, 'index']);
+

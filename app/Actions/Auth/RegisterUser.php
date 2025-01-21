@@ -32,7 +32,6 @@ class RegisterUser
 
         $token = $this->generateUserToken->handle($user);
 
-
         return (new RegisterUserResource($user))
             ->additional([
                 'success' => true,

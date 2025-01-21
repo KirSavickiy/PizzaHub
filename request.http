@@ -1,10 +1,4 @@
-POST http://localhost:8081/api/register
+GET http://localhost:8081/api/cart
 Content-Type: application/json
+Authorization: Bearer 3|G2L0jio652yNfpeTu0AM3nczLs6ggYpMy4VazpSrbc612fb6
 
-{
-  "first_name": "value1",
-  "email": "value2@gmail.com",
-  "phone": "3424234234234234",
-  "password": "password",
-  "password_confirmation": "password"
-}
