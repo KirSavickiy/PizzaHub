@@ -2,13 +2,14 @@
 
 namespace App\Services\Cart;
 
-use Illuminate\Http\Request;
+use App\Models\Cart;
 
 interface CartServiceInterface
 {
     public function getCart();
     public function addProduct(int $productId, int $quantity);
     public function removeProduct(int $productId);
-    public function updatedQuantity(int $productId,int $quantity);
+    public function updatedQuantity(int $productId, int $quantity);
+    public function calculateTotalPrice(Cart $cart);
 
 }

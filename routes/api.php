@@ -19,5 +19,7 @@ Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/categories/{id}', [CategoryController::class, 'show']);
 
 Route::get('/cart', [CartController::class, 'index']);
+Route::post('/cart/add', [CartController::class, 'store']);
+
 //Route::middleware('auth:sanctum')->get('/cart', [CartController::class, 'index']);
 
