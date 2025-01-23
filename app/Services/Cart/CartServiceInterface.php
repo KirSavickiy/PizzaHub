@@ -6,6 +6,7 @@ use App\Models\Cart;
 
 interface CartServiceInterface
 {
+    public function createCart();
     public function getCart();
     public function addProduct(int $productId, int $quantity);
     public function removeProduct(int $productId);

@@ -19,6 +19,8 @@ class ItemResource extends JsonResource
             'name' => $this->productItem->product->name,
             'quantity' => $this->quantity,
             'price' => $this->price,
+            'stock' => $this->productItem->stock,
+            'dough_type' => $this->ProductItem->dough_type,
             'total_price' => $this->price * $this->quantity,
         ];
     }

@@ -18,8 +18,10 @@ Route::get('/products/{id}', [ProductController::class, 'show']);
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/categories/{id}', [CategoryController::class, 'show']);
 
-Route::get('/cart', [CartController::class, 'index']);
-Route::post('/cart/add', [CartController::class, 'store']);
+Route::get('/cart', [CartController::class, 'getCart'])->middleware(App\Http\Middleware\OptionalAuth::class);
+Route::post('/cart/add', [CartController::class, 'addToCart'])->middleware(App\Http\Middleware\OptionalAuth::class);
+Route::post('/cart', [CartController::class, 'createCart'])->middleware(App\Http\Middleware\OptionalAuth::class);
 
-//Route::middleware('auth:sanctum')->get('/cart', [CartController::class, 'index']);
+
+
 

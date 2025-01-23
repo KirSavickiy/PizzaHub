@@ -2,8 +2,9 @@
 
 namespace App\Actions\Cart;
 
-use App\Http\Requests\CartRequest;
+use App\Http\Requests\Cart\AddToCartRequest;
 use App\Http\Resources\Cart\ItemResource;
+use App\Services\Auth\AuthCheckService;
 use App\Services\Cart\CartServiceInterface;
 use Illuminate\Http\JsonResponse;
 
@@ -11,25 +12,23 @@ class AddToCartAction
 {
     protected CartServiceInterface $cartService;
 
-    public function __construct(CartServiceInterface $cartService)
+    protected AuthCheckService $authCheckService;
+
+    public function __construct(CartServiceInterface $cartService, AuthCheckService $authCheckService)
     {
         $this->cartService = $cartService;
+        $this->authCheckService = $authCheckService;
     }
 
-    public function handle(CartRequest $request): JsonResponse
+    public function handle(AddToCartRequest $request): JsonResponse
     {
         $cartId = $request->query('cart-id');
-        $productId = $request->input('product-id');
+        $productId = $request->input('product_id');
 
-        if (is_null($productId) || !is_numeric($productId)) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Product ID is required and must be a valid number.',
-            ], 400);
-        }
+        $request->validated();
 
         $cart = $this->cartService->getCart($cartId);
-        $itemsCount = $cart->items->count();
+
         if (!$cart) {
             return response()->json([
                 'status' => 'error',
@@ -37,6 +36,11 @@ class AddToCartAction
             ], 404);
         }
 
+        if (!$cartId) {
+            $cartId = $cart->id;
+        } else {
+            $cartId = $cart->session_id ?? null;
+        }
         try {
             $item = $this->cartService->addProduct((int) $productId, 1, $cartId);
         } catch (\Exception $e) {
@@ -47,8 +51,9 @@ class AddToCartAction
         }
 
         $totalPrice = $this->cartService->calculateTotalPrice($cart);
-
+        $itemsCount = $cart->items->sum('quantity');
         $cartData = [
+            'cart_id' => $cartId,
             'items_count' => $itemsCount,
             'total_price' => $totalPrice,
             'item' => new ItemResource($item),

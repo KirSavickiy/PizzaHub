@@ -3,20 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Cart\AddToCartAction;
-use App\Http\Requests\CartRequest;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
+use App\Actions\Cart\CreateCartAction;
 use App\Actions\Cart\GetCartAction;
+use App\Http\Requests\Cart\AddToCartRequest;
+use App\Http\Requests\Cart\GetCartRequest;
+use App\Http\Requests\Cart\CreateCartRequest;
+use Illuminate\Http\JsonResponse;
+
 
 
 class CartController extends Controller
 {
-    public function index(GetCartAction $action, Request $request): JsonResponse
+    public function getCart(GetCartAction $action, GetCartRequest $request): JsonResponse
     {
         return $action->handle($request);
     }
 
-    public function store(AddToCartAction $action, CartRequest $request): JsonResponse
+    public function addToCart(AddToCartAction $action, AddToCartRequest $request): JsonResponse
+    {
+        return $action->handle($request);
+    }
+
+    public function createCart(CreateCartAction $action, CreateCartRequest $request): JsonResponse
     {
         return $action->handle($request);
     }

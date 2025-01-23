@@ -11,28 +11,32 @@ use Illuminate\Support\Str;
 
 class CartService implements CartServiceInterface
 {
-    protected $cart;
-    protected $authCheckService;
+    protected Cart $cart;
+    protected AuthCheckService $authCheckService;
     public function __construct(Cart $cart, AuthCheckService $authCheckService)
     {
         $this->authCheckService = $authCheckService;
         $this->cart = $cart;
     }
-    public function getCart(?string $cartId = null): Cart
+
+    public function createCart(): Cart
     {
-        if (auth()->check()) {
-            return $this->cart->firstOrCreate(
-                ['user_id' => auth()->id()],
-                ['session_id' => null]
-            );
-        } elseif ($cartId) {
-            return $this->cart->where('session_id', $cartId)->firstOrFail();
-        } else {
-            return $this->cart->create([
-                'session_id' => (string) Str::uuid(),
-                'user_id' => null
-            ]);
+        return $this->cart->create([
+            'session_id' => (string) Str::uuid(),
+            'user_id' => null,
+        ]);
+    }
+    public function getCart(?string $cartId = null): ?Cart
+    {
+        if ($this->authCheckService->isAuthenticated()) {
+            return $this->getUserCart();
         }
+
+        if ($cartId) {
+            return $this->getGuestCart($cartId);
+        }
+
+        return null;
     }
     public function addProduct(int $productId, int $quantity = 1, ?string $cartId = null): CartItem
     {
@@ -96,11 +100,21 @@ class CartService implements CartServiceInterface
 
         if ($items->isNotEmpty()) {
             return $items->sum(function ($item) {
-                return $item->price * $item->quantity;
+                return round($item->price * $item->quantity, 2);
             });
         }
 
         return 0;
+    }
+
+    private function getUserCart(): Cart
+    {
+        return $this->cart->where('user_id', auth()->id())->firstOrFail();
+    }
+
+    private function getGuestCart(string $cartId): Cart
+    {
+        return $this->cart->where('session_id', $cartId)->firstOrFail();
     }
 
 }

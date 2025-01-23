@@ -2,9 +2,9 @@
 
 namespace App\Actions\Cart;
 
+use App\Http\Requests\Cart\GetCartRequest;
 use App\Http\Resources\Cart\CartResource;
 use App\Services\Auth\AuthCheckService;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
 use App\Services\Cart\CartServiceInterface;
@@ -20,10 +20,13 @@ class GetCartAction
         $this->cartService = $cartService;
     }
 
-    public function handle(Request $request): JsonResponse
+    public function handle(GetCartRequest $request): JsonResponse
     {
         $cartId = $request->query('cart-id');
         $cart = $this->cartService->getCart($cartId);
+        if (!$cart) {
+            return new JsonResponse(['message' => 'Cart not found'], 404);
+        }
         $totalPrice = $this->cartService->calculateTotalPrice($cart);
 
         return response()->json([
