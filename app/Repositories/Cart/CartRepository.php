@@ -35,6 +35,11 @@ class CartRepository implements CartRepositoryInterface
         return Cart::where('id', $cartItem->cart_id)->first();
     }
 
+    public function create(array $data): Cart
+    {
+        return Cart::create($data);
+    }
+
     public function save(Cart $cart): void
     {
         $cart->save();

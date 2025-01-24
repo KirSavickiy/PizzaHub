@@ -31,7 +31,7 @@ class CreateCartAction
             ], 200);
         }
 
-        $newCart = $this->cartService->createNewCart();
+        $newCart = $this->cartService->createNewGuestCart();
 
         return response()->json([
             'success' => true,

@@ -15,7 +15,7 @@ interface CartServiceInterface
      *
      * @return Cart Newly created cart instance.
      */
-    public function createNewCart(): Cart;
+    public function createNewGuestCart(): Cart;
 
     /**
      * Retrieve the cart for an authenticated user.
