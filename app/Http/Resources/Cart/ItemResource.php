@@ -21,7 +21,7 @@ class ItemResource extends JsonResource
             'price' => $this->price,
             'stock' => $this->productItem->stock,
             'dough_type' => $this->ProductItem->dough_type,
-            'total_price' => $this->price * $this->quantity,
+            'total_price' => round($this->price * $this->quantity, 2),
         ];
     }
 }

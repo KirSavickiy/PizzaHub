@@ -19,8 +19,6 @@ class AuthUser
     }
     public function handle(LoginRequest $request): JsonResponse
     {
-        $request->validated();
-
         $user = $this->authService->login($request->loginData());
 
         $token = $this->generateUserToken->handle($user);

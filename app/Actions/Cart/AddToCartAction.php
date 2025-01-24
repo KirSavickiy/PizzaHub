@@ -4,7 +4,8 @@ namespace App\Actions\Cart;
 
 use App\Http\Requests\Cart\AddToCartRequest;
 use App\Http\Resources\Cart\ItemResource;
-use App\Services\Auth\AuthCheckService;
+use App\Repositories\Cart\CartRepositoryInterface;
+use App\Services\Auth\AuthService;
 use App\Services\Cart\CartServiceInterface;
 use Illuminate\Http\JsonResponse;
 
@@ -12,12 +13,15 @@ class AddToCartAction
 {
     protected CartServiceInterface $cartService;
 
-    protected AuthCheckService $authCheckService;
+    protected AuthService $authCheckService;
 
-    public function __construct(CartServiceInterface $cartService, AuthCheckService $authCheckService)
+    protected CartRepositoryInterface $cartRepository;
+
+    public function __construct(CartServiceInterface $cartService, AuthService $authCheckService, CartRepositoryInterface $cartRepository)
     {
         $this->cartService = $cartService;
         $this->authCheckService = $authCheckService;
+        $this->cartRepository = $cartRepository;
     }
 
     public function handle(AddToCartRequest $request): JsonResponse
@@ -25,22 +29,6 @@ class AddToCartAction
         $cartId = $request->query('cart-id');
         $productId = $request->input('product_id');
 
-        $request->validated();
-
-        $cart = $this->cartService->getCart($cartId);
-
-        if (!$cart) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Cart not found.',
-            ], 404);
-        }
-
-        if (!$cartId) {
-            $cartId = $cart->id;
-        } else {
-            $cartId = $cart->session_id ?? null;
-        }
         try {
             $item = $this->cartService->addProduct((int) $productId, 1, $cartId);
         } catch (\Exception $e) {
@@ -50,6 +38,7 @@ class AddToCartAction
             ], 404);
         }
 
+        $cart = $this->cartRepository->getCartByCartItemId($item->id);
         $totalPrice = $this->cartService->calculateTotalPrice($cart);
         $itemsCount = $cart->items->sum('quantity');
         $cartData = [

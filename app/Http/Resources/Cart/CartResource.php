@@ -16,7 +16,7 @@ class CartResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'cart_id' => $this->session_id,
+            'session_id' => $this->session_id,
             'user_id' => $this->user_id,
             'items'=> ItemResource::collection($this->whenLoaded('items')),
         ];

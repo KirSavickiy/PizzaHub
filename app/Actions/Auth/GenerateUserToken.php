@@ -9,7 +9,6 @@ class GenerateUserToken
 {
     public function handle(User $user): string
     {
-        $token = $user->createToken('api')->plainTextToken;
-        return $token;
+        return $user->createToken('api')->plainTextToken;
     }
 }
