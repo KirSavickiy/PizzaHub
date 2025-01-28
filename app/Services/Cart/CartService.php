@@ -3,10 +3,8 @@
 namespace App\Services\Cart;
 
 use App\Exceptions\Auth\AuthenticationException;
-use App\Exceptions\Cart\CartNotFoundException;
 use App\Models\Cart;
 use App\Models\CartItem;
-use App\Models\ProductItem;
 use App\Repositories\Cart\CartItemRepositoryInterface;
 use App\Repositories\Cart\CartRepositoryInterface;
 use App\Repositories\Product\ProductRepositoryInterface;
@@ -83,19 +81,13 @@ class CartService implements CartServiceInterface
 
         return $item;
     }
-    public function removeProduct(int $productId, ?string $cartId = null): void
+    public function removeProduct(Cart $cart, int $id): ?CartItem
     {
-        $product = ProductItem::find($productId);
-        if (!$product) {
-            throw new \Exception('Product not found');
-        }
-        $cart = $this->getCart($cartId);
-        $item = $cart->items()->where('product_item_id', $productId)->first();
-        if ($item) {
-            $item->delete();
-        }else{
-            throw new \Exception('Product not found');
-        }
+        $item = $this->cartItemRepository->getCartItemByProductId($cart, $id);
+
+        $item?->delete();
+
+        return $item;
     }
 
     public function updatedQuantity(int $productId, int $quantity): void
@@ -125,19 +117,6 @@ class CartService implements CartServiceInterface
             $quantity = max(0, (int) $item->quantity);
             return $price * $quantity;
         }), 2);
-    }
-
-    public function resolveCart(?string $cartId): Cart
-    {
-        if ($this->authService->isAuthenticated()) {
-            return $this->getCartForAuthenticatedUser();
-        }
-
-        if (!$cartId) {
-            throw new CartNotFoundException('Cart ID is required for guest users.');
-        }
-
-        return $this->getCartForGuest($cartId);
     }
 
 }

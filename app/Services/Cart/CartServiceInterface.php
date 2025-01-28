@@ -27,7 +27,7 @@ interface CartServiceInterface
     /**
      * Retrieve the cart for a guest.
      *
-     * @param string $cartId The ID of the guest cart.
+     * @param string $sessionId The ID of the guest cart.
      * @return Cart The cart instance for the guest.
      */
     public function getCartForGuest(string $sessionId): Cart;
@@ -44,11 +44,11 @@ interface CartServiceInterface
 
     /**
      * Remove a product from the cart.
-     *
-     * @param int $productId The ID of the product to remove.
-     * @return void
+     * @param Cart $cart The cart instance.
+    * @param int $id The ID of the product to remove.
+     * @return bool
      */
-    public function removeProduct(int $productId): void;
+    public function removeProduct(Cart $cart, int $id): ?CartItem;
 
     /**
      * Update the quantity of a product in the cart.

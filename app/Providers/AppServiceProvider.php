@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Route;
 use App\Services\Cart\CartServiceInterface;
 use App\Services\Cart\CartService;
 use App\Repositories\Cart\CartRepositoryInterface;
@@ -13,6 +14,7 @@ use App\Repositories\Product\ProductRepositoryInterface;
 use App\Services\Cart\CartValidatorService;
 use App\Services\Cart\CartValidatorServiceInterface;
 use Illuminate\Support\ServiceProvider;
+use App\Models\CartItem;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,6 +35,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+
     }
 }

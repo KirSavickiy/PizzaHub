@@ -5,7 +5,6 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use PHPUnit\Event\Code\Throwable;
 
 abstract class BaseException extends Exception
 {

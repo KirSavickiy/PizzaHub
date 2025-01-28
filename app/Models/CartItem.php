@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CartItem extends Model
 {
+    protected $primaryKey = 'id';
     protected $fillable = [
         'cart_id',
         'product_item_id',
