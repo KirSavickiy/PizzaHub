@@ -2,11 +2,9 @@
 
 use App\Exceptions\Auth\AuthenticationException;
 use App\Exceptions\Auth\ValidationException;
-use App\Exceptions\Cart\CartNotFoundException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -20,30 +18,11 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->renderable(function (\Illuminate\Auth\AuthenticationException $e, $request) {
-            return response()->json([
-                'error' => 'Authentication required',
-                'message' => $e->getMessage()
-            ], 401);
+            throw new AuthenticationException($e);
         });
-
-        $exceptions->renderable(function (\App\Exceptions\Cart\CartNotFoundException $e, $request) {
-            return response()->json([
-                'error' => 'Cart not found',
-                'message' => $e->getMessage()
-            ], 404);
-        });
-
-        $exceptions->renderable(function (\App\Exceptions\Auth\UnauthorizedException $e, $request) {
-            return response()->json([
-                'error' => 'Unauthorized',
-                'message' => $e->getMessage()
-            ], 404);
-        });
-
         $exceptions->renderable(function (\Illuminate\Validation\ValidationException $e, $request) {
-            throw new ValidationException(
-                "Validation failed",
-                $e->errors()
-            );
-        });
+            $errors = $e->errors();
+            throw new ValidationException($errors);
+        }
+        );
     })->create();

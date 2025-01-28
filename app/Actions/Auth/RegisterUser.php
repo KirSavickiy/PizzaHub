@@ -2,6 +2,7 @@
 
 namespace App\Actions\Auth;
 
+use App\Exceptions\Auth\ValidationException;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Resources\Auth\RegisterUserResource;
 use App\Services\Auth\RegisterService;
@@ -28,9 +29,12 @@ class RegisterUser
     {
         $validatedData = $request->validated();
 
-        $user = $this->registerService->register($validatedData);
-
-        $token = $this->generateUserToken->handle($user);
+        try{
+            $user = $this->registerService->register($validatedData);
+            $token = $this->generateUserToken->handle($user);
+        }catch (\Exception $e){
+            throw new ValidationException($e);
+        }
 
         return (new RegisterUserResource($user))
             ->additional([

@@ -30,16 +30,17 @@ interface CartServiceInterface
      * @param string $cartId The ID of the guest cart.
      * @return Cart The cart instance for the guest.
      */
-    public function getCartForGuest(string $cartId): Cart;
+    public function getCartForGuest(string $sessionId): Cart;
 
     /**
      * Add a product to the cart.
      *
+     * @param Cart $cart The cart instance.
      * @param int $productId The ID of the product to add.
      * @param int $quantity  The quantity to add.
-     * @return void
+     * @return CartItem
      */
-    public function addProduct(int $productId, int $quantity): CartItem;
+    public function addProduct(Cart $cart, int $productId, int $quantity): CartItem;
 
     /**
      * Remove a product from the cart.

@@ -23,10 +23,12 @@ class GetCartAction
     public function handle(GetCartRequest $request): JsonResponse
     {
         $cartId = $request->query('cart-id');
-        $cart = $this->authService->isAuthenticated()
-            ? $this->cartService->getCartForAuthenticatedUser()
-            : $this->cartService->getCartForGuest($cartId);
 
+        if (!$cartId) {
+            $cart = $this->cartService->getCartForAuthenticatedUser();
+        } else{
+            $cart = $this->cartService->getCartForGuest($cartId);
+        }
 
         $totalPrice = $this->cartService->calculateTotalPrice($cart);
 

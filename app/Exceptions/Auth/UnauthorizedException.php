@@ -2,12 +2,12 @@
 
 namespace App\Exceptions\Auth;
 
-use RuntimeException;
+use App\Exceptions\BaseException;
 
-class UnauthorizedException extends RuntimeException
+class UnauthorizedException extends BaseException
 {
-    public function __construct(string $message = 'Unauthorized', int $code = 401, ?\Throwable $previous = null)
+    public function __construct(string $message = 'Unauthorized', int $code = 401)
     {
-        parent::__construct($message, $code, $previous);
+        parent::__construct($message, $code);
     }
 }

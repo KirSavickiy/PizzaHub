@@ -2,9 +2,8 @@
 
 namespace App\Services\Cart;
 
-use App\Exceptions\Cart\ProductNotFoundException;
+use App\Exceptions\Auth\AuthenticationException;
 use App\Exceptions\Cart\CartNotFoundException;
-use App\Exceptions\Auth\UnauthorizedException;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\ProductItem;
@@ -17,23 +16,23 @@ use Illuminate\Support\Str;
 
 class CartService implements CartServiceInterface
 {
-    protected Cart $cart;
     protected CartRepositoryInterface $cartRepository;
     protected  CartItemRepositoryInterface $cartItemRepository;
     protected ProductRepositoryInterface $productRepository;
+    protected CartValidatorServiceInterface $cartValidator;
     protected AuthService $authService;
     public function __construct(
-        Cart $cart,
         AuthService $authService,
         CartRepositoryInterface $cartRepository,
         ProductRepositoryInterface $productRepository,
-        CartItemRepositoryInterface $cartItemRepository
+        CartItemRepositoryInterface $cartItemRepository,
+        CartValidatorServiceInterface $cartValidator
     ) {
-        $this->cart = $cart;
         $this->authService = $authService;
         $this->cartRepository = $cartRepository;
         $this->productRepository = $productRepository;
         $this->cartItemRepository = $cartItemRepository;
+        $this->cartValidator = $cartValidator;
     }
     public function createNewGuestCart(): Cart
     {
@@ -42,39 +41,26 @@ class CartService implements CartServiceInterface
         ]);
     }
 
+    /**
+     * @throws AuthenticationException
+     */
     public function getCartForAuthenticatedUser(): Cart
     {
         $userId = $this->authService->getAuthenticatedUserId();
 
-        if (!$userId) {
-            throw new UnauthorizedException('User is not authenticated');
-        }
-        $cart = $this->cartRepository->getCartByUserId($userId);
+        return $this->cartRepository->getCartByUserId($userId);
 
-        if (!$cart) {
-            throw new CartNotFoundException('Cart not found for authenticated user');
-        }
-
-        return $cart;
     }
 
     public function getCartForGuest(string $sessionId): Cart
     {
-        $cart = $this->cartRepository->getCartBySessionId($sessionId);
+        return $this->cartRepository->getCartBySessionId($sessionId);
 
-        if (!$cart) {
-            throw new CartNotFoundException();
-        }
-        return $cart;
     }
-    public function addProduct(int $productId, int $quantity = 1, ?string $cartId = null): CartItem
+
+    public function addProduct(Cart $cart, int $productId, int $quantity = 1): CartItem
     {
         $product = $this->productRepository->getProductItemBytId($productId);
-        if (!$product) {
-            throw new ProductNotFoundException($productId);
-        }
-
-        $cart = $this->resolveCart($cartId);
 
         $item = $this->cartItemRepository->getCartItemByProductId($cart, $productId);
 
@@ -84,6 +70,9 @@ class CartService implements CartServiceInterface
             'quantity' => $quantity,
             'price' => $product->price,
         ];
+
+        $this->cartValidator->validateStock($product, $this->cartItemRepository->getQuantity($item));
+        $this->cartValidator->validateCartLimits($cart);
 
         if (!$item) {
             $item = $this->cartItemRepository->create($data);

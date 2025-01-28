@@ -2,7 +2,7 @@
 
 namespace App\Services\Auth;
 
-use Illuminate\Auth\AuthenticationException;
+use App\Exceptions\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
@@ -39,12 +39,19 @@ class AuthService
     }
 
     /**
-     * Retrieves the ID of the authenticated user.
+     * Retrieves the ID of the currently authenticated user.
      *
-     * @return int|null Returns the user's ID if authenticated, or `null` if not.
+     * @return int
+     * @throws AuthenticationException If the user is not authenticated.
      */
-    public function getAuthenticatedUserId(): ?int
+    public function getAuthenticatedUserId(): int
     {
-        return Auth::id();
+        $userId = Auth::id();
+
+        if (!$userId) {
+            throw new AuthenticationException("User is not authenticated.");
+        }
+
+        return $userId;
     }
 }

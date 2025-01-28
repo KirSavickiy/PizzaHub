@@ -2,23 +2,17 @@
 
 namespace App\Exceptions\Auth;
 
-use Exception;
+use App\Exceptions\BaseException;
 
-class ValidationException extends Exception
+class ValidationException extends BaseException
 {
-    protected $errors;
+    protected array $errors;
 
-    public function __construct($message = "Validation failed", $errors = [], $code = 422)
+    public function __construct($errors = [], $code = 422)
     {
+        $message = "Validation failed";
         parent::__construct($message, $code);
-        $this->errors = $errors;
+        $this->setDetails($errors);
     }
 
-    public function render($request)
-    {
-        return response()->json([
-            'error' => $this->getMessage(),
-            'messages' => $this->errors,
-        ], $this->getCode());
-    }
 }

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Cart extends Model
 {
+    protected $table = 'carts';
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
