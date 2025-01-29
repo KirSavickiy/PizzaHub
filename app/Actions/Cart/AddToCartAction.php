@@ -15,6 +15,10 @@ class AddToCartAction extends CartAction
 
         $cart = $this->getCart($cartId);
 
+        if (!$cart) {
+            $cart = $this->cartService->createNewGuestCart();
+        }
+
         $this->cartValidatorService->validateStock($cart, $productId, 1, 'add');
         $this->cartValidatorService->validateCartLimits($cart, $productId, 1, 'add');
 
@@ -25,6 +29,7 @@ class AddToCartAction extends CartAction
 
         $cartData = [
             'id' => $cart->id,
+            'session_id' => $cart->session_id,
             'items_count' => $itemsCount,
             'total_price' => $totalPrice,
             'item' => new ItemResource($item),

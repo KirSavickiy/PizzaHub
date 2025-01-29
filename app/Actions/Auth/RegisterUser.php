@@ -29,12 +29,8 @@ class RegisterUser
     {
         $validatedData = $request->validated();
 
-        try{
-            $user = $this->registerService->register($validatedData);
-            $token = $this->generateUserToken->handle($user);
-        }catch (\Exception $e){
-            throw new ValidationException($e);
-        }
+        $user = $this->registerService->register($validatedData);
+        $token = $this->generateUserToken->handle($user);
 
         return (new RegisterUserResource($user))
             ->additional([

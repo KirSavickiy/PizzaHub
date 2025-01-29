@@ -2,6 +2,7 @@
 
 namespace App\Services\Auth;
 
+use App\Events\UserRegistered;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -13,10 +14,13 @@ class RegisterService
      *
      * @param array $data
      * @return User
+     * @throws \Exception
      */
-    public function register(array $data)
+    public function register(array $data): User
     {
-        DB::beginTransaction();
+        try {
+            DB::beginTransaction();
+
             $user = User::create([
                 'first_name' => $data['first_name'],
                 'last_name' => $data['last_name'] ?? null,
@@ -26,8 +30,14 @@ class RegisterService
                 'password' => Hash::make($data['password']),
                 'role_id' => User::getUserRoleId(),
             ]);
-            $user->cart()->create();
+
             DB::commit();
+            event(new UserRegistered($user));
+
             return $user;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw new \Exception('Error while registering the user: ' . $e->getMessage());
+        }
     }
 }

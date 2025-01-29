@@ -17,6 +17,7 @@ interface CartServiceInterface
      */
     public function createNewGuestCart(): Cart;
 
+
     /**
      * Retrieve the cart for an authenticated user.
      *
