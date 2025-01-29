@@ -48,7 +48,7 @@ interface CartServiceInterface
     * @param int $id The ID of the product to remove.
      * @return bool
      */
-    public function removeProduct(Cart $cart, int $id): ?CartItem;
+    public function removeProduct(Cart $cart, int $item_id): ?CartItem;
 
     /**
      * Update the quantity of a product in the cart.
@@ -57,7 +57,7 @@ interface CartServiceInterface
      * @param int $quantity  The new quantity.
      * @return void
      */
-    public function updatedQuantity(int $productId, int $quantity): void;
+    public function updatedQuantity(Cart $cart, int $item_id, int $quantity): ?CartItem;
 
     /**
      * Calculate the total price of the cart.

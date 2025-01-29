@@ -2,11 +2,9 @@
 
 namespace App\Services\Cart;
 
-use App\Models\ProductItem;
 use App\Models\Cart;
 interface CartValidatorServiceInterface
 {
-    public function validateStock(ProductItem $productItem, int $quantity): void;
-
-    public function validateCartLimits(Cart $cart): void;
+    public function validateStock(Cart $cart, int $id, int $quantity, string $action): void;
+    public function validateCartLimits(Cart $cart, int $id, int $quantity, string $action): void;
 }

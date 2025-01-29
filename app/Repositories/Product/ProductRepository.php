@@ -3,6 +3,7 @@
 namespace App\Repositories\Product;
 
 use App\Exceptions\Product\ProductNotFoundException;
+use App\Models\CartItem;
 use App\Models\ProductItem;
 
 class ProductRepository implements ProductRepositoryInterface
@@ -10,7 +11,7 @@ class ProductRepository implements ProductRepositoryInterface
     /**
      * @throws ProductNotFoundException
      */
-    public function getProductItemBytId($id): ProductItem
+    public function getProductItemById($id): ProductItem
     {
         $productItem = ProductItem::where('id', $id)->first();
         if (!$productItem) {
@@ -22,6 +23,19 @@ class ProductRepository implements ProductRepositoryInterface
     public function getProductItemName(ProductItem $item): string
     {
         return $item->name;
+    }
+
+    /**
+     * @throws ProductNotFoundException
+     */
+    public function getProductItemByCartItem(CartItem $cartItem): ProductItem
+    {
+       $productItemId = $cartItem->product_item_id;
+       $productItem = $this->getProductItemById($productItemId);
+       if (!$productItem) {
+           throw new ProductNotFoundException($productItemId);
+       }
+       return $productItem;
     }
 
 }

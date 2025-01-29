@@ -12,6 +12,7 @@ class RemoveItemCartAction extends CartAction
 {
     /**
      * @throws ProductNotFoundInCartException
+     * @throws CartNotFoundException
      */
     public function handle(RemoveItemCartRequest $request):JsonResponse
     {

@@ -4,41 +4,77 @@ namespace App\Services\Cart;
 
 use App\Exceptions\Product\ProductOutOfLimitsException;
 use App\Exceptions\Product\ProductOutOfStockException;
-use App\Models\ProductItem;
 use App\Models\Cart;
+use App\Repositories\Cart\CartItemRepository;
+use App\Repositories\Cart\CartItemRepositoryInterface;
+use App\Repositories\Product\ProductRepositoryInterface;
+use Illuminate\Support\Facades\Config;
 
 class CartValidatorService implements CartValidatorServiceInterface
 {
+    private CartItemRepositoryInterface $cartItemRepository;
+    private ProductRepositoryInterface $productRepository;
+
+    public function __construct(CartItemRepository $cartItemRepository, ProductRepositoryInterface $productRepository)
+    {
+        $this->cartItemRepository = $cartItemRepository;
+        $this->productRepository = $productRepository;
+    }
+
     /**
      * @throws ProductOutOfStockException
      */
-    public function validateStock(ProductItem $productItem, int $quantity): void
+    public function validateStock(Cart $cart, int $id, int $quantity, string $action): void
     {
-        if ($quantity >= $productItem->stock)
-        {
-            throw new ProductOutOfStockException($productItem->product->name);
+        $productItem = $this->productRepository->getProductItemById($id);
+
+        $cartQuantity = $cart->items()->where('product_item_id', $id)->sum('quantity');
+
+        $availableStock = $productItem->stock - $cartQuantity;
+
+        if ($action === 'add' && $quantity > $availableStock) {
+            throw new ProductOutOfStockException($productItem->product->name, $availableStock);
+        }
+
+        if ($action === 'update' && $quantity > $productItem->stock) {
+            throw new ProductOutOfStockException($productItem->product->name, $availableStock);
         }
     }
 
     /**
      * @throws ProductOutOfLimitsException
      */
-    public function validateCartLimits(Cart $cart): void
+    public function validateCartLimits(Cart $cart, int $id, int $quantity, string $action): void
     {
-        $categories = [
-            'Пиццы' => 10,
-            'Напитки' => 20,
-        ];
-        foreach ($categories as $name => $quantity){
-            $items = $cart->items()
-                ->whereHas('productItem.product.category', function ($query) use ($name) {
-                    $query->where('name', $name);
-                })
-                ->sum('quantity');
+        $categories = Config::get('cart.category_limits') ?? [];
 
-            if ($items >= $quantity){
-                throw new ProductOutOfLimitsException($name, $quantity);
-            }
+        if (!is_array($categories)) {
+            return;
+        }
+
+        $productItem = $this->productRepository->getProductItemById($id);
+        $productCategory = $productItem->product->category?->name;
+
+        if (!$productCategory || !isset($categories[$productCategory])) {
+            return;
+        }
+
+        $categoryLimit = $categories[$productCategory];
+
+        $itemsInCategory = $cart->items()
+            ->whereHas('productItem.product.category', function ($query) use ($productCategory) {
+                $query->where('name', $productCategory);
+            })
+            ->sum('quantity');
+
+
+        if ($action == 'add' && $itemsInCategory + $quantity > $categoryLimit) {
+            throw new ProductOutOfLimitsException($productCategory, $categoryLimit);
+        }
+
+        if ($action == 'update' && $quantity > $categoryLimit) {
+            throw new ProductOutOfLimitsException($productCategory, $categoryLimit);
         }
     }
+
 }

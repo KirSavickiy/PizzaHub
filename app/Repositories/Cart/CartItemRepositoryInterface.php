@@ -8,9 +8,10 @@ use App\Models\CartItem;
 interface CartItemRepositoryInterface
 {
     public function getCartItemByProductId(Cart $cart, int $productId): ?CartItem;
-
+    public function getCartItemById(int $id): ?CartItem;
     public function getQuantity(?CartItem $item): int;
     public function create(array $data): CartItem;
     public function addQuantity(CartItem $item, int $quantity): void;
     public function save(CartItem $item): void;
+
 }

@@ -8,6 +8,9 @@ use App\Exceptions\Cart\CartNotFoundException;
 
 class CartRepository implements CartRepositoryInterface
 {
+    /**
+     * @throws CartNotFoundException
+     */
     public function getCartByUserId(int $userId): Cart
     {
         $cart = Cart::where('user_id', $userId)->first();

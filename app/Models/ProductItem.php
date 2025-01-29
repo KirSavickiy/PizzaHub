@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class ProductItem extends Model
 {
     use HasFactory;
+
     public function cartItems():HasMany
     {
         return $this->hasMany(CartItem::class);

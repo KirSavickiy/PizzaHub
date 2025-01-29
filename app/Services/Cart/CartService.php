@@ -17,20 +17,17 @@ class CartService implements CartServiceInterface
     protected CartRepositoryInterface $cartRepository;
     protected  CartItemRepositoryInterface $cartItemRepository;
     protected ProductRepositoryInterface $productRepository;
-    protected CartValidatorServiceInterface $cartValidator;
     protected AuthService $authService;
     public function __construct(
         AuthService $authService,
         CartRepositoryInterface $cartRepository,
         ProductRepositoryInterface $productRepository,
         CartItemRepositoryInterface $cartItemRepository,
-        CartValidatorServiceInterface $cartValidator
     ) {
         $this->authService = $authService;
         $this->cartRepository = $cartRepository;
         $this->productRepository = $productRepository;
         $this->cartItemRepository = $cartItemRepository;
-        $this->cartValidator = $cartValidator;
     }
     public function createNewGuestCart(): Cart
     {
@@ -58,7 +55,7 @@ class CartService implements CartServiceInterface
 
     public function addProduct(Cart $cart, int $productId, int $quantity = 1): CartItem
     {
-        $product = $this->productRepository->getProductItemBytId($productId);
+        $product = $this->productRepository->getProductItemById($productId);
 
         $item = $this->cartItemRepository->getCartItemByProductId($cart, $productId);
 
@@ -69,9 +66,6 @@ class CartService implements CartServiceInterface
             'price' => $product->price,
         ];
 
-        $this->cartValidator->validateStock($product, $this->cartItemRepository->getQuantity($item));
-        $this->cartValidator->validateCartLimits($cart);
-
         if (!$item) {
             $item = $this->cartItemRepository->create($data);
         } else {
@@ -81,31 +75,31 @@ class CartService implements CartServiceInterface
 
         return $item;
     }
-    public function removeProduct(Cart $cart, int $id): ?CartItem
+    public function removeProduct(Cart $cart, int $item_id): ?CartItem
     {
-        $item = $this->cartItemRepository->getCartItemByProductId($cart, $id);
+        $item = $this->cartItemRepository->getCartItemById($item_id);
 
         $item?->delete();
 
         return $item;
     }
 
-    public function updatedQuantity(int $productId, int $quantity): void
+    public function updatedQuantity(Cart $cart, int $item_id, int $quantity): ?CartItem
     {
-        $cart = $this->getCart();
-        $item = $cart->items()->where('product_item_id', $productId)->first();
+        $item = $this->cartItemRepository->getCartItemById($item_id);
 
-        if (!$item) {
-            throw new \Exception('Product not found in cart');
+        if ($item === null) {
+            return null;
         }
 
         if ($quantity === 0) {
             $item->delete();
-            return;
+            return $item;
         }
 
         $item->quantity = $quantity;
         $item->save();
+        return $item;
     }
 
     public function calculateTotalPrice(Cart $cart): float

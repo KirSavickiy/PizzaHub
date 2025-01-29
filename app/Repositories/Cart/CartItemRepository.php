@@ -17,6 +17,12 @@ class CartItemRepository implements CartItemRepositoryInterface
         }
     }
 
+    public function getCartItemById(int $id): ?CartItem
+    {
+        return CartItem::where('id', $id)->first();
+    }
+
+
     public function getQuantity(?CartItem $item): int
     {
         return $item->quantity ?? 0;

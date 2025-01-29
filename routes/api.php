@@ -22,6 +22,7 @@ Route::get('/cart', [CartController::class, 'getCart'])->middleware(App\Http\Mid
 Route::post('/cart/add', [CartController::class, 'addToCart'])->middleware(App\Http\Middleware\OptionalAuth::class);
 Route::post('/cart', [CartController::class, 'createCart'])->middleware(App\Http\Middleware\OptionalAuth::class);
 Route::delete('/cart/remove/{id}', [CartController::class, 'removeItem'])->middleware(App\Http\Middleware\OptionalAuth::class);
+Route::put('/cart/update/{id}', [CartController::class, 'updateItem'])->middleware(App\Http\Middleware\OptionalAuth::class);
 
 
 

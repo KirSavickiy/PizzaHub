@@ -4,9 +4,6 @@ namespace App\Actions\Cart;
 
 use App\Http\Requests\Cart\AddToCartRequest;
 use App\Http\Resources\Cart\ItemResource;
-use App\Repositories\Cart\CartRepositoryInterface;
-use App\Services\Auth\AuthService;
-use App\Services\Cart\CartServiceInterface;
 use Illuminate\Http\JsonResponse;
 
 class AddToCartAction extends CartAction
@@ -17,9 +14,12 @@ class AddToCartAction extends CartAction
         $productId = $request->input('product_id');
 
         $cart = $this->getCart($cartId);
+
+        $this->cartValidatorService->validateStock($cart, $productId, 1, 'add');
+        $this->cartValidatorService->validateCartLimits($cart, $productId, 1, 'add');
+
         $item = $this->cartService->addProduct($cart, $productId);
 
-        $cart = $this->cartRepository->getCartByCartItemId($item->id);
         $totalPrice = $this->cartService->calculateTotalPrice($cart);
         $itemsCount = $cart->items->sum('quantity');
 

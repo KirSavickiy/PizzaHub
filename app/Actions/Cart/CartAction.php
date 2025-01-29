@@ -3,34 +3,27 @@
 namespace App\Actions\Cart;
 
 use App\Models\Cart;
-use App\Repositories\Cart\CartRepositoryInterface;
 use App\Services\Auth\AuthService;
 use App\Services\Cart\CartServiceInterface;
-use Illuminate\Http\JsonResponse;
+use App\Services\Cart\CartValidatorServiceInterface;
 
 abstract class CartAction
 {
     protected CartServiceInterface $cartService;
     protected AuthService $authService;
-    protected CartRepositoryInterface $cartRepository;
+    protected CartValidatorServiceInterface $cartValidatorService;
 
-    public function __construct(CartServiceInterface $cartService, AuthService $authService, CartRepositoryInterface $cartRepository)
+    public function __construct(CartServiceInterface $cartService, AuthService $authService, CartValidatorServiceInterface $cartValidatorService)
     {
         $this->cartService = $cartService;
         $this->authService = $authService;
-        $this->cartRepository = $cartRepository;
+        $this->cartValidatorService = $cartValidatorService;
     }
 
     protected function getCart(?string $cartId = null): ?Cart
     {
-        if ($this->authService->isAuthenticated()) {
-            return $this->cartService->getCartForAuthenticatedUser();
-        }
-
-        if ($cartId === null) {
-            return null;
-        }
-        return $this->cartService->getCartForGuest($cartId);
+        return $this->authService->isAuthenticated()
+            ? $this->cartService->getCartForAuthenticatedUser()
+            : ($cartId ? $this->cartService->getCartForGuest($cartId) : null);
     }
-
 }
