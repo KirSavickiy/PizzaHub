@@ -2,7 +2,6 @@
 
 namespace App\Actions\Auth;
 
-use App\Exceptions\Auth\ValidationException;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Resources\Auth\RegisterUserResource;
 use App\Services\Auth\RegisterService;
@@ -24,6 +23,7 @@ class RegisterUser
      *
      * @param RegisterRequest $request
      * @return JsonResponse
+     * @throws \Exception
      */
     public function handle(RegisterRequest $request): JsonResponse
     {

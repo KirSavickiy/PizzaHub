@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Address extends Model
 {
+    protected  $fillable = [
+        'address_line_1',
+        'city',
+        'user_id',
+    ];
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

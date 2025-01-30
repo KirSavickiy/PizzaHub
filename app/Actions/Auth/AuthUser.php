@@ -2,6 +2,7 @@
 
 namespace App\Actions\Auth;
 
+use App\Exceptions\Auth\AuthenticationException;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Resources\Auth\AuthUserResource;
 use App\Services\Auth\AuthService;
@@ -17,6 +18,10 @@ class AuthUser
         $this->authService = $authService;
         $this->generateUserToken = $generateUserToken;
     }
+
+    /**
+     * @throws AuthenticationException
+     */
     public function handle(LoginRequest $request): JsonResponse
     {
         $user = $this->authService->login($request->loginData());

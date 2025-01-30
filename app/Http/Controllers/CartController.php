@@ -14,7 +14,6 @@ use App\Http\Requests\Cart\GetCartRequest;
 use App\Http\Requests\Cart\CreateCartRequest;
 use App\Http\Requests\Cart\RemoveItemCartRequest;
 use App\Http\Requests\Cart\UpdateCartItemRequest;
-use App\Models\CartItem;
 use Illuminate\Http\JsonResponse;
 
 
@@ -36,6 +35,10 @@ class CartController extends Controller
         return $action->handle($request);
     }
 
+    /**
+     * @throws ProductNotFoundInCartException
+     * @throws CartNotFoundException
+     */
     public function updateItem(UpdateCartAction $action, UpdateCartItemRequest $request): JsonResponse
     {
         return $action->handle($request);

@@ -2,7 +2,6 @@
 
 namespace App\Services\Cart;
 
-use App\Models\Cart;
 use App\Repositories\Cart\CartRepositoryInterface;
 
 class CartTransferService

@@ -12,12 +12,10 @@ use Illuminate\Support\Facades\Config;
 
 class CartValidatorService implements CartValidatorServiceInterface
 {
-    private CartItemRepositoryInterface $cartItemRepository;
     private ProductRepositoryInterface $productRepository;
 
-    public function __construct(CartItemRepository $cartItemRepository, ProductRepositoryInterface $productRepository)
+    public function __construct(ProductRepositoryInterface $productRepository)
     {
-        $this->cartItemRepository = $cartItemRepository;
         $this->productRepository = $productRepository;
     }
 

@@ -14,7 +14,11 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->append(App\Http\Middleware\OptionalAuth::class);
+        $middleware->alias([
+            'guest' => App\Http\Middleware\CustomGuestMiddleware::class,
+            'guest_or_authenticated' => App\Http\Middleware\OptionalAuth::class,
+        ]);
+
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->renderable(function (\Illuminate\Auth\AuthenticationException $e, $request) {
