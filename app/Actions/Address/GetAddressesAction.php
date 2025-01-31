@@ -7,24 +7,22 @@ use App\Exceptions\Auth\AuthenticationException;
 use App\Http\Resources\Address\AddressResource;
 use App\Services\Address\AddressService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Validator;
 
-class UpdateAddressAction
+class GetAddressesAction
 {
     public function __construct(protected AddressService $addressService) {}
-
     /**
      * @throws AuthenticationException
      * @throws GetAddressException
      */
-    public function handle(string $id, array $data): JsonResponse
+    public function handle(): JsonResponse
     {
-        $address = $this->addressService->update($id, $data);
-
+        $addresses = $this->addressService->getAll();
         return response()->json([
             'success' => true,
-            'data' => new AddressResource($address),
+            'data' => AddressResource::collection($addresses),
             'message' => 'Addresses retrieved successfully',
         ], 200);
     }
+
 }

@@ -22,11 +22,6 @@ class OptionalAuth
 
             if ($accessToken && $accessToken->tokenable) {
                 auth()->login($accessToken->tokenable);
-            } else {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Invalid token or user not found',
-                ], 401);
             }
         }
 

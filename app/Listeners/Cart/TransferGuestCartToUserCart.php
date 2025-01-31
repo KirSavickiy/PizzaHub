@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Listeners\Cart;
 
 use App\Events\UserRegistered;
 use App\Models\Cart;

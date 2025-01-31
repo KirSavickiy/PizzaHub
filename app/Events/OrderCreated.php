@@ -2,26 +2,24 @@
 
 namespace App\Events;
 
-use App\Models\User;
+use App\Models\Order;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class UserRegistered
+
+class OrderCreated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public User $user;
+    public Order $order;
 
     /**
      * Create a new event instance.
-     *
-     * @param User $user
-     * @return void
      */
-    public function __construct(User $user)
+    public function __construct(Order $order)
     {
-        $this->user = $user;
+        $this->order = $order;
     }
+
 }

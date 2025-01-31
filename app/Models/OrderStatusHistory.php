@@ -7,6 +7,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OrderStatusHistory extends Model
 {
+    protected $fillable = [
+        'order_id',
+        'old_status',
+        'new_status',
+        'comment',
+        'changed_by',
+        'changed_at',
+    ];
     public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);

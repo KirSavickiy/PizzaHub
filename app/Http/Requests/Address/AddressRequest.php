@@ -3,10 +3,10 @@
 namespace App\Http\Requests\Address;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Validator;
 
-class UpdateAddressRequest extends FormRequest
+class AddressRequest extends FormRequest
 {
-
     /**
      * Determine if the user is authorized to make this request.
      */

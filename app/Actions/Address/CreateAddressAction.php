@@ -4,18 +4,13 @@ namespace App\Actions\Address;
 
 use App\Exceptions\Address\AddressCreationException;
 use App\Exceptions\Auth\AuthenticationException;
-use App\Http\Resources\Addresses\AddressResource;
+use App\Http\Resources\Address\AddressResource;
 use App\Services\Address\AddressService;
 use Illuminate\Http\JsonResponse;
 
 class CreateAddressAction
 {
-    protected AddressService $addressService;
-
-    public function __construct(AddressService $addressService)
-    {
-        $this->addressService = $addressService;
-    }
+    public function __construct(protected AddressService $addressService) {}
 
     /**
      * @throws AddressCreationException

@@ -2,19 +2,23 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Route;
-use App\Services\Cart\CartServiceInterface;
-use App\Services\Cart\CartService;
-use App\Repositories\Cart\CartRepositoryInterface;
-use App\Repositories\Cart\CartItemRepositoryInterface;
+use App\Events\OrderCreated;
+use App\Events\UserRegistered;
+use App\Listeners\Cart\TransferGuestCartToUserCart;
+use App\Listeners\Order\CreateOrderItems;
 use App\Repositories\Cart\CartItemRepository;
+use App\Repositories\Cart\CartItemRepositoryInterface;
 use App\Repositories\Cart\CartRepository;
+use App\Repositories\Cart\CartRepositoryInterface;
 use App\Repositories\Product\ProductRepository;
 use App\Repositories\Product\ProductRepositoryInterface;
-use App\Services\Cart\CartValidatorService;
-use App\Services\Cart\CartValidatorServiceInterface;
+use App\Services\Cart\CartService;
+use App\Services\Cart\CartServiceInterface;
+use App\Services\Order\OrderService;
+use App\Services\Order\OrderServiceInterface;
+use App\Services\Validators\CartValidatorService;
+use App\Services\Validators\CartValidatorServiceInterface;
 use Illuminate\Support\ServiceProvider;
-use App\Models\CartItem;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(CartRepositoryInterface::class, CartRepository::class);
         $this->app->bind(CartItemRepositoryInterface::class, CartItemRepository::class);
         $this->app->bind(CartValidatorServiceInterface::class, CartValidatorService::class);
+        $this->app->bind(OrderServiceInterface::class, OrderService::class);
     }
 
     /**
@@ -37,4 +42,13 @@ class AppServiceProvider extends ServiceProvider
     {
 
     }
+
+    protected array $listen = [
+        UserRegistered::class => [
+            TransferGuestCartToUserCart::class,
+        ],
+        OrderCreated::class => [
+            CreateOrderItems::class,
+        ]
+    ];
 }

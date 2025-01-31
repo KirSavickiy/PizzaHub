@@ -22,14 +22,8 @@ class GetCartRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'cart-id' => 'nullable|exists:carts,session_id',
+
         ];
     }
 
-    public function messages(): array
-    {
-        return [
-            'cart-id.required' => 'The cart id field is required.',
-        ];
-    }
 }

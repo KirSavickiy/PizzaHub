@@ -4,38 +4,28 @@ namespace App\Services\Address;
 
 use App\Exceptions\Address\GetAddressException;
 use App\Exceptions\Auth\AuthenticationException;
-use App\Models\Address;
 use App\Exceptions\Address\AddressCreationException;
+use App\Models\Address;
 use App\Services\Auth\AuthService;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\QueryException;
+use App\Services\Validators\IdValidatorService;
+use Illuminate\Validation\ValidationException;
 
 class AddressService
 {
-    protected AuthService $authService;
-
-    public function __construct(AuthService $authService)
-    {
-        $this->authService = $authService;
-    }
+    public function __construct(
+        protected AuthService $authService
+    ) {}
 
     /**
      * @throws GetAddressException
      * @throws AuthenticationException
+     * @throws ValidationException
      */
     public function getById(string $id): Address
     {
-        $userId = $this->authService->getAuthenticatedUserId();
-
-        $address = Address::where('id', $id)
-            ->where('user_id', $userId)
-            ->first();
-
-        if (!$address) {
-            throw new GetAddressException("Address with ID {$id} not found", 404);
-        }
-
-        return $address;
+        return $this->findAddressOrFail($id);
     }
 
     /**
@@ -44,11 +34,10 @@ class AddressService
      */
     public function getAll(): Collection
     {
-        $userId = $this->authService->getAuthenticatedUserId();
         try {
-           return Address::where('user_id', $userId)->get();
-        } catch (\Illuminate\Database\QueryException $e) {
-            throw new GetAddressException("Failed to retrieve addresses" . $e->getMessage(), 500);
+            return Address::where('user_id', $this->getUserId())->get();
+        } catch (QueryException) {
+            throw new GetAddressException("Failed to retrieve addresses", 500);
         }
     }
 
@@ -58,24 +47,62 @@ class AddressService
      */
     public function create(array $data): Address
     {
-        $userId = $this->authService->getAuthenticatedUserId();
-        $data['user_id'] = $userId;
+        $data['user_id'] = $this->getUserId();
 
         try {
             return Address::create($data);
         } catch (QueryException $e) {
-            throw new AddressCreationException("Database error: " . $e->getMessage(), 500);
+            throw new AddressCreationException("Failed to create address" . $e->getMessage(), 500);
         }
     }
 
     /**
      * @throws AuthenticationException
      * @throws GetAddressException
+     * @throws ValidationException
      */
     public function update(string $id, array $data): Address
     {
-        $address = $this->getById($id);
+        $address = $this->findAddressOrFail($id);
         $address->update($data);
+
+        return $address;
+    }
+
+    /**
+     * @throws AuthenticationException
+     * @throws GetAddressException
+     * @throws ValidationException
+     */
+    public function delete(string $id): void
+    {
+        $this->findAddressOrFail($id)->delete();
+    }
+
+    /**
+     * @throws AuthenticationException
+     */
+    private function getUserId(): int
+    {
+        return $this->authService->getAuthenticatedUserId();
+    }
+
+    /**
+     * @throws GetAddressException
+     * @throws AuthenticationException
+     * @throws ValidationException
+     */
+    private function findAddressOrFail(string $id): Address
+    {
+        $id = IdValidatorService::validateId($id, 'addresses');
+        $address = Address::where('id', $id)
+            ->where('user_id', $this->getUserId())
+            ->first();
+
+        if (!$address) {
+            throw new GetAddressException("Address with ID $id not found", 404);
+        }
+
         return $address;
     }
 }

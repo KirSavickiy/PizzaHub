@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Resources\Products;
+namespace App\Http\Resources\Address;
 
+use App\Http\Resources\User\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ItemResource extends JsonResource
+class AddressResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +17,8 @@ class ItemResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'price' => $this->price,
-            'stock' => $this->stock,
-            'size' => $this->size,
-            'dough_type' => $this->dough_type,
+            'address' => $this->address_line_1,
+            'city' => $this->city,
         ];
     }
 }

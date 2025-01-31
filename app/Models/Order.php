@@ -8,6 +8,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Order extends Model
 {
+    protected  $fillable = [
+        'user_id',
+        'delivery_method',
+        'payment_method',
+        'delivery_time',
+        'address_id',
+        'total_price',
+    ];
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -18,12 +26,12 @@ class Order extends Model
         return $this->belongsTo(Address::class);
     }
 
-    public function orderItems(): HasMany
+    public function items(): HasMany
     {
         return $this->hasMany(OrderItem::class);
     }
 
-    public function orderStatuses(): HasMany
+    public function statuses(): HasMany
     {
         return $this->hasMany(OrderStatusHistory::class);
     }

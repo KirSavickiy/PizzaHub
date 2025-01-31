@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\Categories\CategoryResource;
-use App\Http\Resources\Products\ProductResource;
+use App\Http\Resources\Category\CategoryResource;
+use App\Http\Resources\Product\ProductResource;
 use App\Models\Category;
 use Illuminate\Http\JsonResponse;
 

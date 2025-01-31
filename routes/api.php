@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\ProductController;
@@ -29,4 +30,9 @@ Route::post('/addresses', [AddressController::class, 'store'])->middleware('auth
 Route::get('/addresses/{id}', [AddressController::class, 'show'])->middleware('auth:sanctum');
 Route::put('/addresses/{id}', [AddressController::class, 'update'])->middleware('auth:sanctum');
 Route::delete('/addresses/{id}', [AddressController::class, 'destroy'])->middleware('auth:sanctum');
+
+Route::get('/orders', [OrderController::class, 'index'])->middleware('auth:sanctum');
+Route::get('/orders/{id}', [OrderController::class, 'show'])->middleware('auth:sanctum');
+Route::post('/orders', [OrderController::class, 'store'])->middleware('auth:sanctum');
+
 

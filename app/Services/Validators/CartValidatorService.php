@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Services\Cart;
+namespace App\Services\Validators;
 
 use App\Exceptions\Product\ProductOutOfLimitsException;
 use App\Exceptions\Product\ProductOutOfStockException;
 use App\Models\Cart;
-use App\Repositories\Cart\CartItemRepository;
-use App\Repositories\Cart\CartItemRepositoryInterface;
 use App\Repositories\Product\ProductRepositoryInterface;
 use Illuminate\Support\Facades\Config;
 

@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Address\CreateAddressAction;
-use App\Actions\Address\GetAddressAction;
+use App\Actions\Address\DeleteAddressAction;
+use App\Actions\Address\GetAddressesAction;
 use App\Actions\Address\GetAddressByIdAction;
 use App\Actions\Address\UpdateAddressAction;
 use App\Exceptions\Address\AddressCreationException;
 use App\Exceptions\Address\GetAddressException;
 use App\Exceptions\Auth\AuthenticationException;
-use App\Http\Requests\Address\CreateAddressRequest;
-use App\Http\Requests\Address\UpdateAddressRequest;
+use App\Http\Requests\Address\AddressRequest;
 use Illuminate\Http\JsonResponse;
 class AddressController extends Controller
 {
@@ -18,7 +18,7 @@ class AddressController extends Controller
      * @throws AuthenticationException
      * @throws GetAddressException
      */
-    public function index(GetAddressAction $action): JsonResponse
+    public function index(GetAddressesAction $action): JsonResponse
     {
         return $action->handle();
     }
@@ -28,7 +28,7 @@ class AddressController extends Controller
      * @throws AddressCreationException
      * @throws AuthenticationException
      */
-    public function store(CreateAddressAction $action, CreateAddressRequest $request): JsonResponse
+    public function store(CreateAddressAction $action, AddressRequest $request): JsonResponse
     {
         return $action->handle($request->validated());
     }
@@ -44,7 +44,7 @@ class AddressController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(string $id, UpdateAddressRequest $request, UpdateAddressAction $action): JsonResponse
+    public function update(string $id, AddressRequest $request, UpdateAddressAction $action): JsonResponse
     {
         return $action->handle($id, $request->validated());
     }
@@ -52,8 +52,8 @@ class AddressController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id, DeleteAddressAction $action): JsonResponse
     {
-        //
+        return $action->handle($id);
     }
 }

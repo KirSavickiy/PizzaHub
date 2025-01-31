@@ -16,9 +16,9 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->enum('delivery_method', ['pickup', 'delivery']);
             $table->enum('payment_method', ['cash', 'card', 'online']);
-            $table->date('delivery_time');
+            $table->dateTime('delivery_time');
             $table->decimal('total_price', 10, 2);
-            $table->foreignId('address_id')->constrained('addresses');
+            $table->foreignId('address_id')->nullable()->constrained('addresses');
             $table->timestamps();
             $table->softDeletes();
         });

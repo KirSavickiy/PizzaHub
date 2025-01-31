@@ -5,7 +5,7 @@ namespace App\Actions\Cart;
 use App\Models\Cart;
 use App\Services\Auth\AuthService;
 use App\Services\Cart\CartServiceInterface;
-use App\Services\Cart\CartValidatorServiceInterface;
+use App\Services\Validators\CartValidatorServiceInterface;
 
 abstract class CartAction
 {
