@@ -4,7 +4,7 @@ namespace App\Services\Address;
 
 use App\Exceptions\Address\GetAddressException;
 use App\Exceptions\Auth\AuthenticationException;
-use App\Exceptions\Address\AddressCreationException;
+use App\Exceptions\Address\AddressException;
 use App\Models\Address;
 use App\Services\Auth\AuthService;
 use Illuminate\Database\Eloquent\Collection;
@@ -42,7 +42,7 @@ class AddressService
     }
 
     /**
-     * @throws AddressCreationException
+     * @throws AddressException
      * @throws AuthenticationException
      */
     public function create(array $data): Address
@@ -52,19 +52,24 @@ class AddressService
         try {
             return Address::create($data);
         } catch (QueryException $e) {
-            throw new AddressCreationException("Failed to create address" . $e->getMessage(), 500);
+            throw new AddressException("Failed to create address" . $e->getMessage(), 500);
         }
     }
 
     /**
      * @throws AuthenticationException
      * @throws GetAddressException
+     * @throws AddressException
      * @throws ValidationException
      */
     public function update(string $id, array $data): Address
     {
         $address = $this->findAddressOrFail($id);
-        $address->update($data);
+        try{
+            $address->update($data);
+        }catch (QueryException $e){
+            throw new AddressException("Failed to update address" . $e->getMessage(), 500);
+        }
 
         return $address;
     }
@@ -76,7 +81,12 @@ class AddressService
      */
     public function delete(string $id): void
     {
-        $this->findAddressOrFail($id)->delete();
+        try{
+            $this->findAddressOrFail($id)->delete();
+        }catch (QueryException $e){
+            throw new AddressException("Failed to delete address" . $e->getMessage(), 500);
+        }
+
     }
 
     /**
@@ -100,7 +110,7 @@ class AddressService
             ->first();
 
         if (!$address) {
-            throw new GetAddressException("Address with ID $id not found", 404);
+            throw new AddressException("Address with ID $id not found", 404);
         }
 
         return $address;

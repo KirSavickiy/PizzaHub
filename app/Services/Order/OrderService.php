@@ -72,7 +72,7 @@ class OrderService implements OrderServiceInterface
      * @throws ValidationException
      * @throws GetOrdersException
      */
-    public function getOrderById(int $id): Order
+    public function getOrderById(string $id): Order
     {
         $id = IdValidatorService::validateId($id, 'orders');
         $order = Order::where('id', $id)

@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\AddressController;
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\OrderController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\User\AddressController;
+use App\Http\Controllers\User\CartController;
+use App\Http\Controllers\User\CategoryController;
+use App\Http\Controllers\User\OrderController;
+use App\Http\Controllers\User\ProductController;
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use Illuminate\Support\Facades\Route;
 
 
 Route::middleware('guest')->post('/login', [AuthController::class, 'login']);
@@ -35,4 +36,7 @@ Route::get('/orders', [OrderController::class, 'index'])->middleware('auth:sanct
 Route::get('/orders/{id}', [OrderController::class, 'show'])->middleware('auth:sanctum');
 Route::post('/orders', [OrderController::class, 'store'])->middleware('auth:sanctum');
 
-
+Route::middleware(['auth:sanctum', 'admin'])->group(function () {
+    Route::post('/admin/products', [AdminProductController::class, 'store']);
+    Route::put('/admin/products/{id}', [AdminProductController::class, 'update']);
+});

@@ -10,6 +10,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Product extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'description',
+        'category_id',
+        'image_path',
+    ];
     public function items(): HasMany
     {
         return $this->hasMany(ProductItem::class);

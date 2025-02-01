@@ -17,6 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'guest' => App\Http\Middleware\CustomGuestMiddleware::class,
             'guest_or_authenticated' => App\Http\Middleware\OptionalAuth::class,
+            'admin' => App\Http\Middleware\AdminMiddleware::class,
         ]);
 
     })
