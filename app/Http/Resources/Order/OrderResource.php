@@ -17,7 +17,7 @@ class OrderResource extends JsonResource
         return [
             'id' => $this->id,
             'user_id' => $this->user->id,
-            'status' => $this->statuses->first()->new_status,
+            'status' => $this->statuses->sortByDesc('created_at')->first()->new_status,
             'delivery_method' =>  $this->delivery_method,
             'payment_method' => $this->payment_method,
             'delivery_time' => $this->delivery_time,

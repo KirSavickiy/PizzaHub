@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('stock');
             $table->integer('size')->nullable();
             $table->string('dough_type')->nullable();
-            $table->foreignId('product_id')->constrained();
+            $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

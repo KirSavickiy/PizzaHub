@@ -2,20 +2,40 @@
 
 namespace App\Repositories\Product;
 
+use App\Exceptions\Product\ProductItemNotFoundException;
 use App\Exceptions\Product\ProductNotFoundException;
 use App\Models\CartItem;
+use App\Models\Product;
 use App\Models\ProductItem;
+use App\Services\Validators\IdValidatorService;
+use Illuminate\Validation\ValidationException;
 
 class ProductRepository implements ProductRepositoryInterface
 {
+
     /**
+     * @throws ValidationException
      * @throws ProductNotFoundException
      */
-    public function getProductItemById($id): ProductItem
+    public function getProductById(string $id): Product
     {
-        $productItem = ProductItem::where('id', $id)->first();
-        if (!$productItem) {
+        $id = IdValidatorService::validateId($id, 'products');
+        $product = Product::query()->find($id);
+        if (!$product) {
             throw new ProductNotFoundException($id);
+        }
+        return $product;
+    }
+
+    /**
+     * @throws ProductItemNotFoundException
+     */
+    public function getProductItemById(string $id): ProductItem
+    {
+        $id = IdValidatorService::validateId($id, 'product_items');
+        $productItem = ProductItem::query()->find($id);
+        if (!$productItem) {
+            throw new ProductItemNotFoundException($id);
         }
         return $productItem;
     }
@@ -31,11 +51,9 @@ class ProductRepository implements ProductRepositoryInterface
     public function getProductItemByCartItem(CartItem $cartItem): ProductItem
     {
        $productItemId = $cartItem->product_item_id;
-       $productItem = $this->getProductItemById($productItemId);
-       if (!$productItem) {
-           throw new ProductNotFoundException($productItemId);
-       }
-       return $productItem;
+
+       return $this->getProductItemById($productItemId);
+
     }
 
 }

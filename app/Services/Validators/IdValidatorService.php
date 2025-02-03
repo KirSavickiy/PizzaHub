@@ -10,10 +10,10 @@ class IdValidatorService
     /**
      * @throws ValidationException
      */
-    public static function validateId(string $id, string $table, string $column = 'id'): string
+    public static function validateId(string $id, string $table): string
     {
         $validator = Validator::make(['id' => $id], [
-            'id' => "required|integer|exists:$table,$column",
+            'id' => "required|integer",
         ]);
 
         if ($validator->fails()) {
@@ -22,4 +22,5 @@ class IdValidatorService
 
         return $id;
     }
+
 }

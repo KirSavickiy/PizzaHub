@@ -2,7 +2,6 @@
 
 namespace App\Actions\User\Order;
 
-use App\Exceptions\Auth\AuthenticationException;
 use App\Exceptions\Order\GetOrdersException;
 use App\Http\Resources\Order\OrderResource;
 use App\Services\Order\OrderService;
@@ -13,7 +12,6 @@ class GetOrdersAction
     public function __construct(protected OrderService $orderService) {}
 
     /**
-     * @throws AuthenticationException
      * @throws GetOrdersException
      */
     public function handle():JsonResponse

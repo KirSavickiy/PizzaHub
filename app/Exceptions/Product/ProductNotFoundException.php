@@ -2,9 +2,9 @@
 
 namespace App\Exceptions\Product;
 
-use Exception;
+use App\Exceptions\BaseException;
 
-class ProductNotFoundException extends Exception
+class ProductNotFoundException extends BaseException
 {
     public function __construct(int $productId = null, string $message = 'Product not found', int $code = 404)
     {
@@ -12,6 +12,6 @@ class ProductNotFoundException extends Exception
             $message = "Product with ID {$productId} not found";
         }
 
-        parent::__construct($message);
+        parent::__construct($message, $code);
     }
 }

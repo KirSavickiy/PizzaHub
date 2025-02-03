@@ -14,11 +14,13 @@ use App\Services\Cart\CartServiceInterface;
 use App\Services\Validators\IdValidatorService;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 
 class OrderService implements OrderServiceInterface
 {
+
     public function __construct(
         protected AuthService $authService,
         protected CartServiceInterface $cartService,
@@ -55,14 +57,17 @@ class OrderService implements OrderServiceInterface
     }
 
     /**
-     * @throws AuthenticationException
      * @throws GetOrdersException
      */
     public function getOrders(): Collection
     {
-        try {
-            return Order::where('user_id', $this->authService->getAuthenticatedUserId())->get();
-        } catch (QueryException) {
+        try{
+            $user = Auth::user();
+            if ($user->can('view', Order::class)) {
+                return Order::all();
+            }
+            return Order::where('user_id', $user->id)->get();
+        }catch (QueryException){
             throw new GetOrdersException("Failed to get orders", 500);
         }
     }
@@ -75,12 +80,25 @@ class OrderService implements OrderServiceInterface
     public function getOrderById(string $id): Order
     {
         $id = IdValidatorService::validateId($id, 'orders');
-        $order = Order::where('id', $id)
-            ->where('user_id', $this->authService->getAuthenticatedUserId())->get()
-            ->first();
+        $user = Auth::user();
+
+        $order = Order::find($id);
+
         if (!$order) {
             throw new GetOrdersException("Order with id {$id} not found", 404);
         }
-        return $order;
+
+        if ($user->can('viewOwnOrder', $order)) {
+            if ($order->user_id !== $this->authService->getAuthenticatedUserId()) {
+                throw new GetOrdersException("You do not have permission to view this order", 403);
+            }
+            return $order;
+        }
+
+        if ($user->can('view', Order::class)) {
+            return $order;
+        }
+
+        throw new GetOrdersException("You do not have permission to view this order", 403);
     }
 }

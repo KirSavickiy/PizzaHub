@@ -1,23 +1,24 @@
 <?php
 
 namespace App\Actions\Admin\Product;
+
 use App\Exceptions\Product\ProductCreationException;
 use App\Repositories\Product\ProductRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 
-
-class UpdateProductAction
+class UpdateProductItemAction
 {
     public function __construct(protected ProductRepositoryInterface $productRepository) {}
+
     /**
      * @throws ProductCreationException
      */
     public function handle(array $data, string $id): JsonResponse
     {
-        $product = $this->productRepository->getProductById($id);
+        $productItem = $this->productRepository->getProductItemById($id);
 
         try{
-            $product->update($data);
+            $productItem->update($data);
         }catch (\Exception $e){
             throw new ProductCreationException("Failed to update Product" . $e->getMessage());
         }
@@ -27,6 +28,5 @@ class UpdateProductAction
             'message' => 'Product updated successfully',
             'code' => 200,
         ]);
-
     }
 }

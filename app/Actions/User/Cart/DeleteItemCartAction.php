@@ -8,7 +8,7 @@ use App\Http\Requests\User\Cart\RemoveItemCartRequest;
 use App\Http\Resources\Cart\CartResource;
 use Illuminate\Http\JsonResponse;
 
-class RemoveItemCartAction extends CartAction
+class DeleteItemCartAction extends CartAction
 {
     /**
      * @throws ProductNotFoundInCartException

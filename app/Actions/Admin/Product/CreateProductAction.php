@@ -2,6 +2,7 @@
 
 namespace App\Actions\Admin\Product;
 
+use App\Exceptions\Product\ProductCreationException;
 use App\Http\Resources\Product\ProductResource;
 use App\Models\Product;
 use App\Models\ProductItem;
@@ -10,6 +11,9 @@ use Illuminate\Support\Facades\DB;
 
 class CreateProductAction
 {
+    /**
+     * @throws ProductCreationException
+     */
     public function handle(array $data): JsonResponse
     {
         DB::beginTransaction();
@@ -41,7 +45,7 @@ class CreateProductAction
             ], 201);
         }catch (\Exception $e){
             DB::rollBack();
-            return response()->json(['error' => 'Failed to create product', 'message' => $e->getMessage()], 500);
+            throw new ProductCreationException("Failed to create Product " . $e->getMessage());
         }
     }
 }

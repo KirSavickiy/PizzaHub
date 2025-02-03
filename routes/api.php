@@ -1,12 +1,14 @@
 <?php
 
+use App\Http\Controllers\Admin\Product\ProductController as AdminProductController;
+use App\Http\Controllers\Admin\Category\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\Order\OrderController as AdminOrderController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\User\AddressController;
 use App\Http\Controllers\User\CartController;
 use App\Http\Controllers\User\CategoryController;
 use App\Http\Controllers\User\OrderController;
 use App\Http\Controllers\User\ProductController;
-use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -36,7 +38,19 @@ Route::get('/orders', [OrderController::class, 'index'])->middleware('auth:sanct
 Route::get('/orders/{id}', [OrderController::class, 'show'])->middleware('auth:sanctum');
 Route::post('/orders', [OrderController::class, 'store'])->middleware('auth:sanctum');
 
-Route::middleware(['auth:sanctum', 'admin'])->group(function () {
-    Route::post('/admin/products', [AdminProductController::class, 'store']);
-    Route::put('/admin/products/{id}', [AdminProductController::class, 'update']);
+Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->group(function () {
+    Route::post('/products', [AdminProductController::class, 'store']);
+    Route::put('/products/{id}', [AdminProductController::class, 'update']);
+    Route::put('/product_items/{id}', [AdminProductController::class, 'updateItem']);
+    Route::delete('/products/{id}', [AdminProductController::class, 'destroy']);
+    Route::delete('/product_items/{id}', [AdminProductController::class, 'destroyItem']);
+
+    Route::post('/categories', [AdminCategoryController::class, 'store']);
+    Route::put('/categories/{id}', [AdminCategoryController::class, 'update']);
+    Route::delete('/categories/{id}', [AdminCategoryController::class, 'destroy']);
+
+    Route::get('/orders', [OrderController::class, 'index']);
+    Route::get('/orders/{id}', [OrderController::class, 'show']);
+    Route::post('/orders/{id}/status', [AdminOrderController::class, 'changeStatus']);
+
 });

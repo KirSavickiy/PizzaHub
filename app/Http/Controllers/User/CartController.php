@@ -5,7 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Actions\User\Cart\AddToCartAction;
 use App\Actions\User\Cart\CreateCartAction;
 use App\Actions\User\Cart\GetCartAction;
-use App\Actions\User\Cart\RemoveItemCartAction;
+use App\Actions\User\Cart\DeleteItemCartAction;
 use App\Actions\User\Cart\UpdateCartAction;
 use App\Exceptions\Cart\CartNotFoundException;
 use App\Exceptions\Cart\ProductNotFoundInCartException;
@@ -48,7 +48,7 @@ class CartController extends Controller
      * @throws ProductNotFoundInCartException
      * @throws CartNotFoundException
      */
-    public function removeItem(RemoveItemCartAction $action, RemoveItemCartRequest $request): JsonResponse
+    public function removeItem(DeleteItemCartAction $action, RemoveItemCartRequest $request): JsonResponse
     {
         return $action->handle($request);
     }
