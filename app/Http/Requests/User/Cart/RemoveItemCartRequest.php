@@ -21,12 +21,7 @@ class RemoveItemCartRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => ['required', 'integer'],
         ];
     }
 
-    public function validationData(): array
-    {
-        return array_merge($this->all(), $this->route()->parameters());
-    }
 }

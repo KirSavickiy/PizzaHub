@@ -11,6 +11,7 @@ class CreateCartAction extends CartAction
     public function handle(CreateCartRequest $request): JsonResponse
     {
         $cart = $this->getCart();
+
         if ($cart){
            return response()->json([
                'success' => true,

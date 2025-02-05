@@ -23,7 +23,7 @@ class CustomGuestMiddleware extends RedirectIfAuthenticated
             if (Auth::guard($guard)->check()) {
 
                 if ($request->expectsJson()) {
-                    return response()->json(['message' => 'You are already logged in.'], 200);
+                    return response()->json(['message' => 'You are already logged in.'], 403);
                 }
 
                 return redirect($this->redirectTo($request));

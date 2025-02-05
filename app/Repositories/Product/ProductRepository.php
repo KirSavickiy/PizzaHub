@@ -2,16 +2,20 @@
 
 namespace App\Repositories\Product;
 
+use App\Exceptions\Cart\ProductNotFoundInCartException;
 use App\Exceptions\Product\ProductItemNotFoundException;
 use App\Exceptions\Product\ProductNotFoundException;
+use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Product;
 use App\Models\ProductItem;
+use App\Repositories\Cart\CartItemRepository;
 use App\Services\Validators\IdValidatorService;
 use Illuminate\Validation\ValidationException;
 
 class ProductRepository implements ProductRepositoryInterface
 {
+    public function __construct(protected CartItemRepository $cartItemRepository) {}
 
     /**
      * @throws ValidationException
@@ -47,13 +51,27 @@ class ProductRepository implements ProductRepositoryInterface
 
     /**
      * @throws ProductNotFoundException
+     * @throws ProductItemNotFoundException
      */
     public function getProductItemByCartItem(CartItem $cartItem): ProductItem
     {
        $productItemId = $cartItem->product_item_id;
 
        return $this->getProductItemById($productItemId);
+    }
 
+
+    /**
+     * @throws ProductItemNotFoundException
+     * @throws ProductNotFoundInCartException
+     * @throws ProductNotFoundException
+     * @throws ValidationException
+     */
+    public function getProductItemIdByCartItemId(Cart $cart, string $id): int
+    {
+        $cartItem = $this->cartItemRepository->getCartItemById($cart ,$id);
+        $productItem = $this->getProductItemByCartItem($cartItem);
+        return $productItem->id;
     }
 
 }

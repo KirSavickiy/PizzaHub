@@ -2,8 +2,11 @@
 
 namespace App\Repositories\Cart;
 
+use App\Exceptions\Cart\ProductNotFoundInCartException;
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Services\Validators\IdValidatorService;
+use Illuminate\Validation\ValidationException;
 
 class CartItemRepository implements CartItemRepositoryInterface
 {
@@ -17,9 +20,21 @@ class CartItemRepository implements CartItemRepositoryInterface
         }
     }
 
-    public function getCartItemById(int $id): ?CartItem
+    /**
+     * @throws ValidationException
+     * @throws ProductNotFoundInCartException
+     */
+    public function getCartItemById(Cart $cart, string $id): CartItem
     {
-        return CartItem::where('id', $id)->first();
+        $id = IdValidatorService::validateId($id, 'cart_items');
+
+        $item = CartItem::query()->find($id);
+
+        if (!$item || !$cart->items->contains('id', $item->id)) {
+            throw new ProductNotFoundInCartException($id);
+        }
+
+        return $item;
     }
 
 

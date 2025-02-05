@@ -3,12 +3,14 @@
 namespace App\Services\Cart;
 
 use App\Exceptions\Auth\AuthenticationException;
+use App\Exceptions\Cart\ProductNotFoundInCartException;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Repositories\Cart\CartItemRepositoryInterface;
 use App\Repositories\Cart\CartRepositoryInterface;
 use App\Repositories\Product\ProductRepositoryInterface;
 use App\Services\Auth\AuthService;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 
 
@@ -76,22 +78,26 @@ class CartService implements CartServiceInterface
 
         return $item;
     }
-    public function removeProduct(Cart $cart, int $item_id): ?CartItem
-    {
-        $item = $this->cartItemRepository->getCartItemById($item_id);
 
-        $item?->delete();
+    /**
+     * @throws ProductNotFoundInCartException
+     */
+    public function removeProduct(Cart $cart, string $id): CartItem
+    {
+        $item = $this->cartItemRepository->getCartItemById($cart, $id);
+
+        Gate::authorize('delete', [$cart, $item]);
+
+        $item->delete();
 
         return $item;
     }
 
-    public function updatedQuantity(Cart $cart, int $item_id, int $quantity): ?CartItem
+    public function updatedQuantity(Cart $cart, string $id, int $quantity): CartItem
     {
-        $item = $this->cartItemRepository->getCartItemById($item_id);
+        $item = $this->cartItemRepository->getCartItemById($cart, $id);
 
-        if ($item === null) {
-            return null;
-        }
+        Gate::authorize('update', [$cart, $item]);
 
         if ($quantity === 0) {
             $item->delete();

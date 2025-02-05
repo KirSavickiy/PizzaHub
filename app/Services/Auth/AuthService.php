@@ -28,7 +28,8 @@ class AuthService
 
         return $user;
     }
-    /**
+
+    /*
      * Checks if the user is authenticated
      *
      * @return bool

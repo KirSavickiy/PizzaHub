@@ -15,29 +15,16 @@ class UpdateCartAction extends CartAction
      * @throws CartNotFoundException
      * @throws ProductNotFoundInCartException
      */
-    public function handle(UpdateCartItemRequest $request): JsonResponse
+    public function handle(array $data, ?string $cartId, string $id): JsonResponse
     {
-        $id = $request->route('id');
-        $cartId = $request->query('cart-id') ?? null;
-        $quantity = $request->input('quantity');
+        $quantity = $data['quantity'];
         $cart = $this->getCart($cartId);
-
-
-        $cartItem = CartItem::where('id', $id)->first();
-
-        if (!$cartItem) {
-            throw new ProductNotFoundInCartException();
-        }
-
-        $productId = $cartItem->product_item_id;
-
-        if (!$productId) {
-            throw new ProductNotFoundInCartException();
-        }
 
         if(!$cart) {
             throw new CartNotFoundException();
         }
+
+        $productId = $this->productRepository->getProductItemIdByCartItemId($cart, $id);
 
         $this->cartValidatorService->validateStock($cart, $productId, $quantity, 'update');
         $this->cartValidatorService->validateCartLimits($cart, $productId, $quantity, 'update');

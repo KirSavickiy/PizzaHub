@@ -11,22 +11,18 @@ use Illuminate\Http\JsonResponse;
 class DeleteItemCartAction extends CartAction
 {
     /**
-     * @throws ProductNotFoundInCartException
      * @throws CartNotFoundException
      */
-    public function handle(RemoveItemCartRequest $request):JsonResponse
+    public function handle(?string $cartId, string $id):JsonResponse
     {
-        $id = $request->route('id');
-        $cartId = $request->query('cart-id') ?? null;
+
         $cart = $this->getCart($cartId);
 
         if(!$cart) {
             throw new CartNotFoundException();
         }
 
-        if(!$this->cartService->removeProduct($cart, $id)){
-            throw new ProductNotFoundInCartException();
-        }
+        $this->cartService->removeProduct($cart, $id);
 
         return response()->json([
             'success' => true,

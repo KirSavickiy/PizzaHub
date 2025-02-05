@@ -39,17 +39,18 @@ class CartController extends Controller
      * @throws ProductNotFoundInCartException
      * @throws CartNotFoundException
      */
-    public function updateItem(UpdateCartAction $action, UpdateCartItemRequest $request): JsonResponse
+    public function updateItem(UpdateCartAction $action, UpdateCartItemRequest $request, string $id): JsonResponse
     {
-        return $action->handle($request);
+        $cartId = $request->query('cart-id') ?? null;
+        return $action->handle($request->validated(), $cartId, $id);
     }
 
     /**
-     * @throws ProductNotFoundInCartException
      * @throws CartNotFoundException
      */
-    public function removeItem(DeleteItemCartAction $action, RemoveItemCartRequest $request): JsonResponse
+    public function removeItem(DeleteItemCartAction $action, RemoveItemCartRequest $request, string $id): JsonResponse
     {
-        return $action->handle($request);
+        $cartId = $request->query('cart-id') ?? null;
+        return $action->handle($cartId, $id);
     }
 }

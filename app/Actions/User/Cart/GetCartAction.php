@@ -14,6 +14,10 @@ class GetCartAction extends CartAction
 
         $cart = $this->getCart($cartId);
 
+        if (!$cart) {
+            return response()->json(['error' => 'Cart not found'], 404);
+        }
+
         $totalPrice = $this->cartService->calculateTotalPrice($cart);
 
         return response()->json([

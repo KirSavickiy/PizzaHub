@@ -5,6 +5,7 @@ use App\Exceptions\Auth\ValidationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use App\Http\Middleware\ApiJsonResponse;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -19,6 +20,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'guest_or_authenticated' => App\Http\Middleware\OptionalAuth::class,
             'admin' => App\Http\Middleware\AdminMiddleware::class,
         ]);
+        $middleware->append(ApiJsonResponse::class);
 
     })
     ->withExceptions(function (Exceptions $exceptions) {

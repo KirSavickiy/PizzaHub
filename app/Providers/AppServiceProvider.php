@@ -6,7 +6,9 @@ use App\Events\OrderCreated;
 use App\Events\UserRegistered;
 use App\Listeners\Cart\TransferGuestCartToUserCart;
 use App\Listeners\Order\CreateOrderItems;
+use App\Models\CartItem;
 use App\Models\Order;
+use App\Policies\Cart\CartItemPolicy;
 use App\Policies\Order\OrderPolicy;
 use App\Repositories\Cart\CartItemRepository;
 use App\Repositories\Cart\CartItemRepositoryInterface;
@@ -22,6 +24,7 @@ use App\Services\Order\OrderService;
 use App\Services\Order\OrderServiceInterface;
 use App\Services\Validators\CartValidatorService;
 use App\Services\Validators\CartValidatorServiceInterface;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -46,10 +49,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->app['Illuminate\Contracts\Auth\Access\Gate']->policy(Order::class, OrderPolicy::class);
+        $this->app['Illuminate\Contracts\Auth\Access\Gate']->define('delete', [CartItemPolicy::class, 'delete']);
+        $this->app['Illuminate\Contracts\Auth\Access\Gate']->define('update', [CartItemPolicy::class, 'update']);
     }
 
     protected array $policies = [
         Order::class => OrderPolicy::class,
+        CartItem::class => CartItemPolicy::class,
     ];
 
     protected array $listen = [

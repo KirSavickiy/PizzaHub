@@ -2,16 +2,17 @@
 
 namespace Database\Factories;
 
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Role;
-use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
  */
 class UserFactory extends Factory
 {
+    protected $model = User::class;
     /**
      * The current password being used by the factory.
      */
@@ -33,7 +34,30 @@ class UserFactory extends Factory
         ];
     }
 
+    public function asUser(): self
+    {
+        return $this->state(function (array $attributes) {
+            $userRole = Role::firstOrCreate(['name' => 'user']);
+            return ['role_id' => $userRole->id];
+        });
+    }
+
+    public function asAdmin(): self
+    {
+        return $this->state(function (array $attributes) {
+            $adminRole = Role::firstOrCreate(['name' => 'admin']);
+            return ['role_id' => $adminRole->id];
+        });
+    }
+
     /**
-     * Indicate that the model's email address should be unverified.
+     * Create a cart for the user after they are created.
      */
+    public function withCart(): self
+    {
+        return $this->afterCreating(function ($user) {
+            $user->cart()->create();
+        });
+    }
+
 }

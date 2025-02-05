@@ -24,7 +24,7 @@ class ProductFactory extends Factory
             'category_id' => Category::pluck('id')->random(),
         ];
     }
-    public function pizzas(): static
+    public function drinks(): static
     {
         return $this->state(fn () => [
             'name'=> $this->faker->unique()->randomElement([
@@ -34,7 +34,7 @@ class ProductFactory extends Factory
         ]);
     }
 
-    public function drinks(): static
+    public function pizzas(): static
     {
         return $this->state(fn () => [
             'name'=> $this->faker->unique()->randomElement([

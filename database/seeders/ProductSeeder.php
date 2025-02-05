@@ -16,11 +16,10 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        $pizzasCategory = Category::where('name', 'Пиццы')->first();
-        $drinksCategory = Category::where('name', 'Напитки')->first();
+        $categories = Category::whereIn('name', ['Пиццы', 'Напитки'])->pluck('id', 'name');
 
-        $pizzas = Product::factory(10)->pizzas()->create(['category_id' => $pizzasCategory->id]);
-        $drinks = Product::factory(10)->drinks()->create(['category_id' => $drinksCategory->id]);
+        $pizzas = Product::factory(10)->pizzas()->create(['category_id' => $categories['Пиццы']]);
+        $drinks = Product::factory(10)->drinks()->create(['category_id' => $categories['Напитки']]);
 
         $pizzas->each(function ($pizza) {
             ProductItem::factory()->pizzas()->create(['product_id' => $pizza->id]);

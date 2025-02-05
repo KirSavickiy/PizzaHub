@@ -10,7 +10,7 @@ class IdValidatorService
     /**
      * @throws ValidationException
      */
-    public static function validateId(string $id, string $table): string
+    public static function validateId(string $id, string $table): int
     {
         $validator = Validator::make(['id' => $id], [
             'id' => "required|integer",
@@ -20,7 +20,7 @@ class IdValidatorService
             throw new ValidationException($validator);
         }
 
-        return $id;
+        return (int) $id;
     }
 
 }
