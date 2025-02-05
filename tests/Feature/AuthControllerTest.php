@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
 use Tests\TestCase;
 
-class AuthController extends TestCase
+class AuthControllerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -80,16 +80,11 @@ class AuthController extends TestCase
     {
         $this->actingAs($this->user);
         $this->post('/api/logout')->assertStatus(Response::HTTP_OK);
-
     }
 
-    public function test_guest_cannot_logout():void
+    public function test_guest_cannot_logout(): void 
     {
-
+        $this->post('/api/logout')->assertStatus(Response::HTTP_UNAUTHORIZED);
     }
-
-
-
-
-
 }
+
