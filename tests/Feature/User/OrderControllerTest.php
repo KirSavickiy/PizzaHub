@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\User;
 
 use App\Models\Address;
 use App\Models\CartItem;
@@ -12,8 +12,8 @@ use App\Models\Product;
 use App\Models\ProductItem;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 use Illuminate\Http\Response;
+use Tests\TestCase;
 
 
 class OrderControllerTest extends TestCase

@@ -11,7 +11,7 @@ class AddToCartAction extends CartAction
     public function handle(AddToCartRequest $request): JsonResponse
     {
         $cartId = $request->query('cart-id');
-        $productId = $request->input('product_id');
+        $productId = $request->input('product_item_id');
 
         $cart = $this->getCart($cartId);
 

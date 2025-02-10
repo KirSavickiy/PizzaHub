@@ -22,16 +22,16 @@ class AddToCartRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'product_id' => 'bail|required|numeric|exists:products,id',
+            'product_item_id' => 'bail|required|int|exists:product_items,id',
             'cart_id' => 'bail|nullable|exists:carts,session_id',
         ];
     }
     public function messages(): array
     {
         return [
-            'product_id.required' => 'The product ID is required to add an item to the cart.',
-            'product_id.numeric' => 'The product ID must be a valid number.',
-            'product_id.exists' => 'The product with the given ID does not exist in our records.',
+            'product_item_id.required' => 'The product ID is required to add an item to the cart.',
+            'product_item_id.numeric' => 'The product ID must be a valid number.',
+            'product_item_id.exists' => 'The product with the given ID does not exist in our records.',
         ];
     }
 }

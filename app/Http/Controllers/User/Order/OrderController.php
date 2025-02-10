@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\User\Order;
 
 use App\Actions\User\Order\CreateOrderAction;
 use App\Actions\User\Order\GetOrderByIdAction;

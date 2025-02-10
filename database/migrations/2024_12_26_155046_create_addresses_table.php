@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('address_line_1');
             $table->string('city');
             $table->foreignId('user_id')->constrained();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

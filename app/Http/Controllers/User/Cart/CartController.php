@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\User\Cart;
 
 use App\Actions\User\Cart\AddToCartAction;
 use App\Actions\User\Cart\CreateCartAction;
-use App\Actions\User\Cart\GetCartAction;
 use App\Actions\User\Cart\DeleteItemCartAction;
+use App\Actions\User\Cart\GetCartAction;
 use App\Actions\User\Cart\UpdateCartAction;
 use App\Exceptions\Cart\CartNotFoundException;
 use App\Exceptions\Cart\ProductNotFoundInCartException;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\User;
 
 use App\Models\Cart;
 use App\Models\CartItem;
@@ -75,21 +75,18 @@ class CartControllerTest extends TestCase
 
     public function test_can_add_product_to_cart_for_authenticated_user():void
     {
-        $cartData = [
-            'product_id' => $this->productItem->id,
-        ];
-
         $this->actingAs($this->user);
-
+        $cartData = [
+            'product_item_id' => $this->productItem->id,
+        ];
         $response = $this->post('/api/cart/add', $cartData);
-
         $response->assertStatus(Response::HTTP_OK);
     }
 
     public function test_can_add_product_to_cart_for_unauthenticated_user_without_cart_id():void
     {
         $cartData = [
-            'product_id' => $this->productItem->id,
+            'product_item_id' => $this->productItem->id,
         ];
 
 
@@ -101,7 +98,7 @@ class CartControllerTest extends TestCase
     public function test_can_add_product_to_cart_for_unauthenticated_user_with_cart_id():void
     {
         $cartData = [
-            'product_id' => $this->productItem->id,
+            'product_item_id' => $this->productItem->id,
         ];
         $response = $this->post('/api/cart/add/?cart-id='. $this->cart->session_id , $cartData);
         $response->assertStatus(Response::HTTP_OK);

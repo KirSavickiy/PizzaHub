@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\User;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductItem;
-use App\Models\Category;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
+use Tests\TestCase;
 
 
 class ProductControllerTest extends TestCase
@@ -15,15 +15,18 @@ class ProductControllerTest extends TestCase
     use RefreshDatabase;
 
     private ProductItem $productItem;
+    private Category $category;
+
+    private Product $product;
+
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $category = Category::factory()->create();
-        $product = Product::factory()->create(['category_id' => $category->id]);
-        $this->productItem = ProductItem::factory()->create(['product_id' => $product->id]);
-       
+        $this->category = Category::factory()->create();
+        $this->product = Product::factory()->create(['category_id' => $this->category->id]);
+        $this->productItem = ProductItem::factory()->create(['product_id' => $this->product->id]);
     }
 
     public function test_can_get_products_list():void
@@ -34,7 +37,7 @@ class ProductControllerTest extends TestCase
 
     public function  test_can_get_single_product_by_id():void
     {
-        $response = $this->get('/api/products/' . $this->productItem->id);
+        $response = $this->get('/api/products/' . $this->string($this->productItem->id));
         $response->assertStatus(Response::HTTP_OK);
     }
 
@@ -42,6 +45,10 @@ class ProductControllerTest extends TestCase
     {
         $response = $this->get('/api/products/999');
         $response->assertStatus(Response::HTTP_NOT_FOUND);
+    }
+
+    private function string(mixed $id)
+    {
     }
 
 }

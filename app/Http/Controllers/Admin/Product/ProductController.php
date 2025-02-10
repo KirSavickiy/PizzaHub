@@ -32,21 +32,9 @@ class ProductController extends Controller
         return $action->handle($request->validated(), $id);
     }
 
-    /**
-     * @throws ProductCreationException
-     */
-    public function updateItem(UpdateProductItemRequest $request, UpdateProductItemAction $action, string $id): JsonResponse
-    {
-        return $action->handle($request->validated(), $id);
-    }
-
     public function destroy(DeleteProductAction $action, string $id): JsonResponse
     {
         return $action->handle($id);
     }
 
-    public function destroyItem(DeleteProductItemAction $action, string $id): JsonResponse
-    {
-        return $action->handle($id);
-    }
 }

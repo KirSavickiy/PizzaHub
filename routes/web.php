@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\User\CartController;
+use App\Http\Controllers\User\Cart\CartController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {

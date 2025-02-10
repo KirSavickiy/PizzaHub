@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\User\Address;
 
 use App\Actions\User\Address\CreateAddressAction;
 use App\Actions\User\Address\DeleteAddressAction;

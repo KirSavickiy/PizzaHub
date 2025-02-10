@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
-use App\Models\Role;
 
 class UserSeeder extends Seeder
 {
@@ -15,6 +13,7 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::factory(10)->asUser()->withCart()->create();
-        User::factory()->asAdmin()->create();
+        User::factory()->asUser()->withCart()->create(['email' => 'test@user.com', 'password' => bcrypt('password')]);
+        User::factory()->asAdmin()->create(['email' => 'test@admin.com', 'password' => bcrypt('password')]);
     }
 }

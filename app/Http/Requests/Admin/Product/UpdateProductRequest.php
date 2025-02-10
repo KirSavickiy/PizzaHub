@@ -26,6 +26,7 @@ class UpdateProductRequest extends FormRequest
             'description' => 'nullable|string:max:65535',
             'category_id' => 'required|integer|exists:categories,id',
             'image_path' => 'nullable|string:max:255',
+            'items' => 'prohibited',
         ];
     }
 }

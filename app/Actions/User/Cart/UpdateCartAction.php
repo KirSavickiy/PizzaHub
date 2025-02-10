@@ -34,6 +34,8 @@ class UpdateCartAction extends CartAction
             throw new ProductNotFoundInCartException();
         }
 
+        $cart->load('items');
+
         return response()->json([
             'success' => true,
             'data' => new CartResource($cart),
