@@ -3,6 +3,7 @@
 namespace App\Services\Auth;
 
 use App\Exceptions\Auth\AuthenticationException;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
@@ -55,4 +56,5 @@ class AuthService
 
         return $userId;
     }
+
 }

@@ -24,7 +24,6 @@ use App\Services\Order\OrderService;
 use App\Services\Order\OrderServiceInterface;
 use App\Services\Validators\CartValidatorService;
 use App\Services\Validators\CartValidatorServiceInterface;
-use Illuminate\Auth\Access\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

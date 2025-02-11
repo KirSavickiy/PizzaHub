@@ -8,9 +8,14 @@ use Illuminate\Validation\ValidationException;
 class IdValidatorService
 {
     /**
-     * @throws ValidationException
+     * Validate the given ID to ensure it is a required integer.
+     *
+     * @param string $id The ID to validate.
+     * @return int The validated ID as an integer.
+     *
+     * @throws ValidationException If the ID is not a valid integer.
      */
-    public static function validateId(string $id, string $table): int
+    public static function validateId(string $id): int
     {
         $validator = Validator::make(['id' => $id], [
             'id' => "required|integer",

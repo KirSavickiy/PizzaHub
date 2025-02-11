@@ -6,7 +6,6 @@ use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Support\Facades\Log;
 
 class CartItemPolicy
 {

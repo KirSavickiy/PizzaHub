@@ -8,12 +8,21 @@ use App\Exceptions\Cart\CartNotFoundException;
 
 class CartRepository implements CartRepositoryInterface
 {
+    protected Cart $cart;
+    protected CartItem $cartItem;
+
+    public function __construct(Cart $cart, CartItem $cartItem)
+    {
+        $this->cart = $cart;
+        $this->cartItem = $cartItem;
+    }
+
     /**
      * @throws CartNotFoundException
      */
     public function getCartByUserId(int $userId): Cart
     {
-        $cart = Cart::where('user_id', $userId)->first();
+        $cart = $this->cart->where('user_id', $userId)->first();
 
         if (!$cart) {
             throw new CartNotFoundException('Cart not found for authenticated user');
@@ -22,9 +31,12 @@ class CartRepository implements CartRepositoryInterface
         return $cart;
     }
 
+    /**
+     * @throws CartNotFoundException
+     */
     public function getCartBySessionId(string $sessionId): Cart
     {
-        $cart = Cart::where('session_id', $sessionId)->first();
+        $cart = $this->cart->where('session_id', $sessionId)->first();
 
         if (!$cart) {
             throw new CartNotFoundException('Cart not found for session ID ' . $sessionId);
@@ -35,18 +47,14 @@ class CartRepository implements CartRepositoryInterface
 
     public function getCartByCartItemId(string $cartItemId): ?Cart
     {
-        $cartItem = CartItem::where('id', $cartItemId)->first();
+        $cartItem = $this->cartItem->find($cartItemId);
 
-        if (!$cartItem) {
-            return null;
-        }
-
-        return Cart::where('id', $cartItem->cart_id)->first();
+        return $cartItem ? $this->cart->find($cartItem->cart_id) : null;
     }
 
     public function create(array $data): Cart
     {
-        return Cart::create($data);
+        return $this->cart->create($data);
     }
 
     public function save(Cart $cart): void

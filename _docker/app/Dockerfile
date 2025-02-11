@@ -27,5 +27,5 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
 COPY ./_docker/app/php.ini /usr/local/etc/php/conf.d/php.ini
 COPY ./_docker/app/zzz-xdebug.ini /usr/local/etc/php/conf.d/20-xdebug.ini
 
-
+RUN chmod -R 777 /var/www/storage
 WORKDIR /var/www

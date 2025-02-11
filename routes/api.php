@@ -8,27 +8,32 @@ use App\Http\Controllers\User\Order\OrderController;
 use App\Http\Controllers\User\Product\ProductController;
 use Illuminate\Support\Facades\Route;
 
+// Guest routes
 Route::middleware('guest')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/register', [AuthController::class, 'register']);
 });
 
-Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
+// Routes for authenticated users
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
 
+    Route::apiResource('addresses', AddressController::class);
+    Route::apiResource('orders', OrderController::class)->only(['index', 'show', 'store']);
+});
+
+// Public routes (available to everyone)
 Route::apiResource('products', ProductController::class)->only(['index', 'show']);
 Route::apiResource('categories', CategoryController::class)->only(['index', 'show']);
 
-
-Route::middleware('check.user.auth')->group(function () {
-    Route::get('/cart', [CartController::class, 'getCart']);
-    Route::post('/cart', [CartController::class, 'createCart']);
-    Route::post('/cart/add', [CartController::class, 'addToCart']);
-    Route::delete('/cart/remove/{id}', [CartController::class, 'removeItem']);
-    Route::put('/cart/update/{id}', [CartController::class, 'updateItem']);
+// Cart Routes
+Route::middleware('check.user.auth')->prefix('cart')->group(function () {
+    Route::get('/', [CartController::class, 'getCart']);
+    Route::post('/', [CartController::class, 'createCart']);
+    Route::post('/add', [CartController::class, 'addToCart']);
+    Route::delete('/remove/{id}', [CartController::class, 'removeItem']);
+    Route::put('/update/{id}', [CartController::class, 'updateItem']);
 });
 
-Route::middleware('auth:sanctum')->apiResource('addresses', AddressController::class);
-
-Route::middleware('auth:sanctum')->apiResource('orders', OrderController::class)->only(['index', 'show', 'store']);
-
+// Admin Routes
 require __DIR__.'/admin.php';

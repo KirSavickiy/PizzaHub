@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Config;
 class CartValidatorService implements CartValidatorServiceInterface
 {
     private ProductRepositoryInterface $productRepository;
-
     public function __construct(ProductRepositoryInterface $productRepository)
     {
         $this->productRepository = $productRepository;
@@ -63,14 +62,18 @@ class CartValidatorService implements CartValidatorServiceInterface
             })
             ->sum('quantity');
 
+        $currentItemQuantity = $cart->items()
+            ->where('product_item_id', $id)
+            ->sum('quantity');
+
+        $newItemsInCategory = $itemsInCategory - $currentItemQuantity + $quantity;
 
         if ($action == 'add' && $itemsInCategory + $quantity > $categoryLimit) {
             throw new ProductOutOfLimitsException($productCategory, $categoryLimit);
         }
 
-        if ($action == 'update' && $quantity > $categoryLimit) {
+        if ($action == 'update' && $newItemsInCategory > $categoryLimit) {
             throw new ProductOutOfLimitsException($productCategory, $categoryLimit);
         }
     }
-
 }

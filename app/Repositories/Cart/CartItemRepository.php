@@ -3,40 +3,40 @@
 namespace App\Repositories\Cart;
 
 use App\Exceptions\Cart\ProductNotFoundInCartException;
-use App\Models\Cart;
 use App\Models\CartItem;
 use App\Services\Validators\IdValidatorService;
 use Illuminate\Validation\ValidationException;
 
 class CartItemRepository implements CartItemRepositoryInterface
 {
-    public function getCartItemByProductId(Cart $cart, int $productId): ?CartItem
+    protected CartItem $cartItem;
+
+    public function __construct(CartItem $cartItem)
     {
-        $cartItem = $cart->items()->where('product_item_id', $productId)->first();
-        if (!$cartItem) {
-            return null;
-        }else{
-            return $cartItem;
-        }
+        $this->cartItem = $cartItem;
+    }
+
+    public function getCartItemByProductId($cart, int $productId): ?CartItem
+    {
+        return $cart->items()->where('product_item_id', $productId)->first();
     }
 
     /**
      * @throws ValidationException
      * @throws ProductNotFoundInCartException
      */
-    public function getCartItemById(Cart $cart, string $id): CartItem
+    public function getCartItemById($cart, string $id): CartItem
     {
         $id = IdValidatorService::validateId($id, 'cart_items');
+        $item = $cart->items()->find($id);
 
-        $item = CartItem::query()->find($id);
-
-        if (!$item || !$cart->items->contains('id', $item->id)) {
+        if (!$item) {
             throw new ProductNotFoundInCartException($id);
         }
 
+        /** @var CartItem $item */
         return $item;
     }
-
 
     public function getQuantity(?CartItem $item): int
     {
@@ -45,13 +45,14 @@ class CartItemRepository implements CartItemRepositoryInterface
 
     public function addQuantity(CartItem $item, int $quantity): void
     {
-        $item->quantity += $quantity;
+        $item->increment('quantity', $quantity);
     }
 
     public function create(array $data): CartItem
     {
-        return CartItem::create($data);
+        return $this->cartItem->create($data);
     }
+
     public function save(CartItem $item): void
     {
         $item->save();

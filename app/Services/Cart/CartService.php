@@ -2,15 +2,11 @@
 
 namespace App\Services\Cart;
 
-use App\Exceptions\Auth\AuthenticationException;
-use App\Exceptions\Cart\ProductNotFoundInCartException;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Repositories\Cart\CartItemRepositoryInterface;
 use App\Repositories\Cart\CartRepositoryInterface;
 use App\Repositories\Product\ProductRepositoryInterface;
-use App\Services\Auth\AuthService;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 
 
@@ -19,14 +15,11 @@ class CartService implements CartServiceInterface
     protected CartRepositoryInterface $cartRepository;
     protected  CartItemRepositoryInterface $cartItemRepository;
     protected ProductRepositoryInterface $productRepository;
-    protected AuthService $authService;
     public function __construct(
-        AuthService $authService,
         CartRepositoryInterface $cartRepository,
         ProductRepositoryInterface $productRepository,
         CartItemRepositoryInterface $cartItemRepository,
     ) {
-        $this->authService = $authService;
         $this->cartRepository = $cartRepository;
         $this->productRepository = $productRepository;
         $this->cartItemRepository = $cartItemRepository;
@@ -38,15 +31,9 @@ class CartService implements CartServiceInterface
         ]);
     }
 
-
-    /**
-     * @throws AuthenticationException
-     */
     public function getCartForAuthenticatedUser(): Cart
     {
-        $userId = $this->authService->getAuthenticatedUserId();
-
-        return $this->cartRepository->getCartByUserId($userId);
+        return $this->cartRepository->getCartByUserId(auth()->id());
 
     }
 
@@ -79,45 +66,31 @@ class CartService implements CartServiceInterface
         return $item;
     }
 
-    /**
-     * @throws ProductNotFoundInCartException
-     */
     public function removeProduct(Cart $cart, string $id): CartItem
     {
         $item = $this->cartItemRepository->getCartItemById($cart, $id);
-
-        Gate::authorize('delete', [$cart, $item]);
 
         $item->delete();
 
         return $item;
     }
 
-    public function updatedQuantity(Cart $cart, string $id, int $quantity): CartItem
+    public function updateQuantity(Cart $cart, string $id, int $quantity): CartItem
     {
         $item = $this->cartItemRepository->getCartItemById($cart, $id);
 
-        Gate::authorize('update', [$cart, $item]);
-
         if ($quantity === 0) {
-            $item->delete();
-            return $item;
+            return $this->removeProduct($cart, $id);
         }
 
         $item->quantity = $quantity;
-        $item->save();
+        $this->cartItemRepository->save($item);
+
         return $item;
     }
 
     public function calculateTotalPrice(Cart $cart): float
     {
-        $items = $cart->items;
-
-        return round($items->sum(function ($item) {
-            $price = max(0, (float) $item->price);
-            $quantity = max(0, (int) $item->quantity);
-            return $price * $quantity;
-        }), 2);
+        return round($cart->items->sum(fn($item) => $item->price * $item->quantity), 2);
     }
-
 }

@@ -1,0 +1,2160 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "PizzaHub API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api": {},
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Авторизация пользователя",
+                "operationId": "7be696305d492052f178aeb932629dbe",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Успешная авторизация",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 14
+                                                },
+                                                "first_name": {
+                                                    "type": "string",
+                                                    "example": "Kiryl"
+                                                },
+                                                "last_name": {
+                                                    "type": "string",
+                                                    "example": null,
+                                                    "nullable": true
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Login successful"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "6|6zPcqgtchsCh1TAg5lA2DqCFOzzf2MIYHcOkpkKb613d21fb"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Ошибка авторизации",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid credentials"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 401
+                                        },
+                                        "details": {
+                                            "type": "array",
+                                            "items": {}
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Регистрация пользователя",
+                "operationId": "d9dc41f3ddcbd08f3a2c25c029aa26be",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "data": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 13
+                                            },
+                                            "first_name": {
+                                                "type": "string",
+                                                "example": "Kiryl"
+                                            },
+                                            "last_name": {
+                                                "type": "string",
+                                                "example": null,
+                                                "nullable": true
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "success": {
+                                        "type": "boolean",
+                                        "example": true
+                                    },
+                                    "message": {
+                                        "type": "string",
+                                        "example": "User registered successfully"
+                                    },
+                                    "token": {
+                                        "type": "string",
+                                        "example": "3|XMGVEM30roBDpfuJHgDP9kLcfN65WmqzvCbp23ev9e6e98b1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Успешная регистрация",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 13
+                                                },
+                                                "first_name": {
+                                                    "type": "string",
+                                                    "example": "Kiryl"
+                                                },
+                                                "last_name": {
+                                                    "type": "string",
+                                                    "example": null,
+                                                    "nullable": true
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User registered successfully"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "3|XMGVEM30roBDpfuJHgDP9kLcfN65WmqzvCbp23ev9e6e98b1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ошибка валидации",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation failed"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 422
+                                        },
+                                        "details": {
+                                            "properties": {
+                                                "email": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "Email already exists"
+                                                    }
+                                                },
+                                                "phone": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "Phone number already exists"
+                                                    }
+                                                },
+                                                "password": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "Password does not match"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Выход пользователя",
+                "operationId": "4f893349caea84bc40fab8ff56f0fcbb",
+                "responses": {
+                    "200": {
+                        "description": "Выход выполнен",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully logged out"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/addresses/{address}": {
+            "get": {
+                "tags": [
+                    "Addresses"
+                ],
+                "summary": "Получить адрес по ID",
+                "operationId": "cef120083854225004b7b0ca60846aa3",
+                "parameters": [
+                    {
+                        "name": "address",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 3
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Успешный ответ",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 3
+                                                },
+                                                "address": {
+                                                    "type": "string",
+                                                    "example": "Мира 25"
+                                                },
+                                                "city": {
+                                                    "type": "string",
+                                                    "example": "Минск"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Address retrieved successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Адрес не найден"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Addresses"
+                ],
+                "summary": "Обновить адрес",
+                "description": "Обновление адреса по его ID",
+                "operationId": "updateAddress",
+                "parameters": [
+                    {
+                        "name": "address",
+                        "in": "path",
+                        "description": "ID адреса для обновления",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 23
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "address_line_1",
+                                    "city"
+                                ],
+                                "properties": {
+                                    "address_line_1": {
+                                        "description": "Адресная строка 1",
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "Мира 25"
+                                    },
+                                    "city": {
+                                        "description": "Город",
+                                        "type": "string",
+                                        "maxLength": 50,
+                                        "example": "Минск"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Адрес обновлен успешно",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 23
+                                                },
+                                                "address": {
+                                                    "type": "string",
+                                                    "example": "Мира 25"
+                                                },
+                                                "city": {
+                                                    "type": "string",
+                                                    "example": "Минск"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Addresses retrieved successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Адрес с таким ID не найден",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Address with ID 21 not found"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 404
+                                        },
+                                        "details": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "example": [
+                                                "Ошибка 1",
+                                                "Ошибка 2"
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Addresses"
+                ],
+                "summary": "Удалить адрес",
+                "description": "Удаление адреса по его ID",
+                "operationId": "deleteAddress",
+                "parameters": [
+                    {
+                        "name": "address",
+                        "in": "path",
+                        "description": "ID адреса для удаления",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 2
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Адрес успешно удален",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 24
+                                                    },
+                                                    "address": {
+                                                        "type": "string",
+                                                        "example": "Советская 1"
+                                                    },
+                                                    "city": {
+                                                        "type": "string",
+                                                        "example": "Москва"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Address with ID 2 deleted successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Адрес с таким ID не найден",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Address with ID 21 not found"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 404
+                                        },
+                                        "details": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "example": [
+                                                "Details about the error"
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/addresses": {
+            "get": {
+                "tags": [
+                    "Addresses"
+                ],
+                "summary": "Получить список адресов",
+                "operationId": "c2cf707eeb35a73be1c94dc850806f43",
+                "responses": {
+                    "200": {
+                        "description": "Успешный ответ",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "address": {
+                                                        "type": "string",
+                                                        "example": "Советская 1"
+                                                    },
+                                                    "city": {
+                                                        "type": "string",
+                                                        "example": "Москва"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Addresses retrieved successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Неавторизован"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Addresses"
+                ],
+                "summary": "Создать новый адрес",
+                "operationId": "701875ed84c11c469a175891494292fc",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "address_line_1",
+                                    "city"
+                                ],
+                                "properties": {
+                                    "address_line_1": {
+                                        "type": "string",
+                                        "example": "Советская 1"
+                                    },
+                                    "city": {
+                                        "type": "string",
+                                        "example": "Москва"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Адрес создан",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 24
+                                                },
+                                                "address": {
+                                                    "type": "string",
+                                                    "example": "Советская 1"
+                                                },
+                                                "city": {
+                                                    "type": "string",
+                                                    "example": "Москва"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "New address created."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ошибка валидации",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation failed"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 422
+                                        },
+                                        "details": {
+                                            "properties": {
+                                                "address_line_1": {
+                                                    "type": "string",
+                                                    "example": "The address line 1 field is required."
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/cart": {
+            "get": {
+                "tags": [
+                    "Cart"
+                ],
+                "summary": "Получить корзину пользователя или гостевую корзину",
+                "description": "Возвращает содержимое корзины. Если пользователь авторизован, используется его корзина. Если нет, нужно передать `cart-id` в параметрах запроса.",
+                "operationId": "getCart",
+                "parameters": [
+                    {
+                        "name": "cart-id",
+                        "in": "query",
+                        "description": "ID гостевой корзины (если пользователь не авторизован)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "5497a034-39c3-4d14-af0b-675f094926a1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Корзина успешно получена",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "properties": {
+                                                "success": {
+                                                    "type": "boolean",
+                                                    "example": true
+                                                },
+                                                "data": {
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer",
+                                                            "example": 1
+                                                        },
+                                                        "session_id": {
+                                                            "type": "string",
+                                                            "example": null,
+                                                            "nullable": true
+                                                        },
+                                                        "user_id": {
+                                                            "type": "integer",
+                                                            "example": 1,
+                                                            "nullable": true
+                                                        },
+                                                        "items": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "properties": {
+                                                                    "id": {
+                                                                        "type": "integer",
+                                                                        "example": 57
+                                                                    },
+                                                                    "product_id": {
+                                                                        "type": "integer",
+                                                                        "example": 5
+                                                                    },
+                                                                    "name": {
+                                                                        "type": "string",
+                                                                        "example": "Кантри-пицца"
+                                                                    },
+                                                                    "quantity": {
+                                                                        "type": "integer",
+                                                                        "example": 2
+                                                                    },
+                                                                    "price": {
+                                                                        "type": "string",
+                                                                        "example": "438.55"
+                                                                    },
+                                                                    "stock": {
+                                                                        "type": "integer",
+                                                                        "example": 2
+                                                                    },
+                                                                    "dough_type": {
+                                                                        "type": "string",
+                                                                        "example": "Тонкое"
+                                                                    },
+                                                                    "total_price": {
+                                                                        "type": "number",
+                                                                        "format": "float",
+                                                                        "example": 877.1
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            }
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "total_price": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 877.1
+                                                },
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Products retrieved successfully"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        {
+                                            "properties": {
+                                                "success": {
+                                                    "type": "boolean",
+                                                    "example": true
+                                                },
+                                                "data": {
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer",
+                                                            "example": 33
+                                                        },
+                                                        "session_id": {
+                                                            "type": "string",
+                                                            "example": "5497a034-39c3-4d14-af0b-675f094926a1"
+                                                        },
+                                                        "user_id": {
+                                                            "type": "integer",
+                                                            "example": null,
+                                                            "nullable": true
+                                                        },
+                                                        "items": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "type": "object"
+                                                            }
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "total_price": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 0
+                                                },
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Products retrieved successfully"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Корзина не найдена или неверный `cart-id`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "properties": {
+                                                "error": {
+                                                    "type": "string",
+                                                    "example": "Cart not found"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        {
+                                            "properties": {
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "error"
+                                                },
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Cart not found for session ID 9ba4c140-fc7e-4720-86a5-0aa1fкак"
+                                                },
+                                                "code": {
+                                                    "type": "integer",
+                                                    "example": 404
+                                                },
+                                                "details": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Cart"
+                ],
+                "summary": "Создать корзину для гостя",
+                "description": "Создает новую гостевую корзину. Если пользователь авторизован, вернётся существующая корзина.",
+                "operationId": "createCart",
+                "responses": {
+                    "201": {
+                        "description": "Новая корзина успешно создана (только для гостей)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 35
+                                                },
+                                                "session_id": {
+                                                    "type": "string",
+                                                    "example": "f88cd52d-d042-47ae-a148-12256eb8e693"
+                                                },
+                                                "user_id": {
+                                                    "type": "integer",
+                                                    "example": null,
+                                                    "nullable": true
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "total_price": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 0
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "New cart created."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Корзина уже существует (для авторизованных пользователей)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "session_id": {
+                                                    "type": "string",
+                                                    "example": null,
+                                                    "nullable": true
+                                                },
+                                                "user_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "items": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 57
+                                                            },
+                                                            "product_id": {
+                                                                "type": "integer",
+                                                                "example": 5
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Кантри-пицца"
+                                                            },
+                                                            "quantity": {
+                                                                "type": "integer",
+                                                                "example": 2
+                                                            },
+                                                            "price": {
+                                                                "type": "string",
+                                                                "example": "438.55"
+                                                            },
+                                                            "stock": {
+                                                                "type": "integer",
+                                                                "example": 2
+                                                            },
+                                                            "dough_type": {
+                                                                "type": "string",
+                                                                "example": "Тонкое"
+                                                            },
+                                                            "total_price": {
+                                                                "type": "number",
+                                                                "format": "float",
+                                                                "example": 877.1
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "total_price": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 877.1
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Cart already exists."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/cart/add": {
+            "post": {
+                "tags": [
+                    "Cart"
+                ],
+                "summary": "Добавить товар в корзину",
+                "description": "Добавляет товар в корзину. Если запрос от гостя, необходимо передать параметр `cart-id`.",
+                "operationId": "addToCart",
+                "parameters": [
+                    {
+                        "name": "cart-id",
+                        "in": "query",
+                        "description": "Идентификатор гостевой корзины (только для гостей)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "b3296a2b-d6b6-46dc-b336-87d6df3a09bd"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "product_item_id"
+                                ],
+                                "properties": {
+                                    "product_item_id": {
+                                        "description": "ID товара, который нужно добавить в корзину",
+                                        "type": "integer",
+                                        "example": 4
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Товар успешно добавлен в корзину",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The product has been successfully added to your cart."
+                                        },
+                                        "cart": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "session_id": {
+                                                    "type": "string",
+                                                    "example": null,
+                                                    "nullable": true
+                                                },
+                                                "items_count": {
+                                                    "type": "integer",
+                                                    "example": 3
+                                                },
+                                                "total_price": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 1422.83
+                                                },
+                                                "item": {
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer",
+                                                            "example": 58
+                                                        },
+                                                        "product_id": {
+                                                            "type": "integer",
+                                                            "example": 4
+                                                        },
+                                                        "name": {
+                                                            "type": "string",
+                                                            "example": "Чоризо фреш"
+                                                        },
+                                                        "quantity": {
+                                                            "type": "integer",
+                                                            "example": 1
+                                                        },
+                                                        "price": {
+                                                            "type": "string",
+                                                            "example": "545.73"
+                                                        },
+                                                        "stock": {
+                                                            "type": "integer",
+                                                            "example": 32
+                                                        },
+                                                        "dough_type": {
+                                                            "type": "string",
+                                                            "example": "Тонкое"
+                                                        },
+                                                        "total_price": {
+                                                            "type": "number",
+                                                            "format": "float",
+                                                            "example": 545.73
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Недостаточно товара на складе",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Товара: Кантри-пицца недостаточно на складе."
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 409
+                                        },
+                                        "details": {
+                                            "properties": {
+                                                "stock": {
+                                                    "type": "string",
+                                                    "example": "Доступный остаток на складе: 0."
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Корзина не найдена",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Cart not found for session ID b3296a2b-d6b6-46dc-b336-87d6df3a09bd"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 404
+                                        },
+                                        "details": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ошибка валидации",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation error"
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "product_item_id": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The product_item_id field is required."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/cart/update/{id}": {
+            "put": {
+                "tags": [
+                    "Cart"
+                ],
+                "summary": "Обновить товар в корзине",
+                "description": "Обновляет количество товара в корзине. Если запрос от гостя, необходимо передать параметр `cart-id`.",
+                "operationId": "updateCartItem",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID товара в корзине",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 58
+                        }
+                    },
+                    {
+                        "name": "cart-id",
+                        "in": "query",
+                        "description": "Идентификатор гостевой корзины (только для гостей)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "b3296a2b-d6b6-46dc-b336-87d6df3a09bd"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "quantity"
+                                ],
+                                "properties": {
+                                    "quantity": {
+                                        "description": "Новое количество товара в корзине",
+                                        "type": "integer",
+                                        "example": 2
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Товар успешно обновлен в корзине",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "session_id": {
+                                                    "type": "string",
+                                                    "example": null,
+                                                    "nullable": true
+                                                },
+                                                "user_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "items": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 58
+                                                            },
+                                                            "product_id": {
+                                                                "type": "integer",
+                                                                "example": 4
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Чоризо фреш"
+                                                            },
+                                                            "quantity": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "price": {
+                                                                "type": "string",
+                                                                "example": "545.73"
+                                                            },
+                                                            "stock": {
+                                                                "type": "integer",
+                                                                "example": 32
+                                                            },
+                                                            "dough_type": {
+                                                                "type": "string",
+                                                                "example": "Тонкое"
+                                                            },
+                                                            "total_price": {
+                                                                "type": "number",
+                                                                "format": "float",
+                                                                "example": 545.73
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "total_price": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 984.28
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Product successfully updated in the cart."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Недостаточно товара на складе",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Товара: Кантри-пицца недостаточно на складе."
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 409
+                                        },
+                                        "details": {
+                                            "properties": {
+                                                "stock": {
+                                                    "type": "string",
+                                                    "example": "Доступный остаток на складе: 1."
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Корзина не найдена",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Cart not found"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 404
+                                        },
+                                        "details": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ошибка валидации",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation error"
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "quantity": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The quantity field is required."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/cart/remove/{id}": {
+            "delete": {
+                "tags": [
+                    "Cart"
+                ],
+                "summary": "Удалить товар из корзины",
+                "description": "Удаляет товар из корзины. Если запрос от гостя, необходимо передать параметр `cart-id`.",
+                "operationId": "removeCartItem",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID товара в корзине",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 58
+                        }
+                    },
+                    {
+                        "name": "cart-id",
+                        "in": "query",
+                        "description": "Идентификатор гостевой корзины (только для гостей)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "b3296a2b-d6b6-46dc-b336-87d6df3a09bd"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Товар успешно удален из корзины",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "session_id": {
+                                                    "type": "string",
+                                                    "example": null,
+                                                    "nullable": true
+                                                },
+                                                "user_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "items": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 60
+                                                            },
+                                                            "product_id": {
+                                                                "type": "integer",
+                                                                "example": 6
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Песто"
+                                                            },
+                                                            "quantity": {
+                                                                "type": "integer",
+                                                                "example": 5
+                                                            },
+                                                            "price": {
+                                                                "type": "string",
+                                                                "example": "247.46"
+                                                            },
+                                                            "stock": {
+                                                                "type": "integer",
+                                                                "example": 5
+                                                            },
+                                                            "dough_type": {
+                                                                "type": "string",
+                                                                "example": "Тонкое"
+                                                            },
+                                                            "total_price": {
+                                                                "type": "number",
+                                                                "format": "float",
+                                                                "example": 1237.3
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "total_price": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 2745.43
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Product successfully removed from the cart."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Товар не найден в корзине",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Product with ID 5 not found in the Cart"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 404
+                                        },
+                                        "details": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/categories": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Получить список категорий",
+                "description": "Возвращает список категорий товаров. Авторизация не требуется.",
+                "operationId": "getCategories",
+                "responses": {
+                    "200": {
+                        "description": "Успешный ответ с категориями",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Напитки"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Non consequatur sunt quibusdam. Ipsam sed qui quia praesentium sequi. Commodi dicta ad aut sequi."
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Products retrieved successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Internal Server Error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/categories/{category}": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Получить информацию о категории",
+                "description": "Возвращает данные категории и список товаров в ней. Авторизация не требуется.",
+                "operationId": "getCategory",
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "path",
+                        "description": "ID категории",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 50
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Успешный ответ с данными категории",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Закуски"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "Praesentium modi non tempora autem voluptatem officia. Excepturi autem optio voluptatum neque."
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "products": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Product retrieved successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Категория не найдена",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No query results for model [App\\\\Models\\\\Category] 50"
+                                        },
+                                        "exception": {
+                                            "type": "string",
+                                            "example": "Symfony\\\\Component\\\\HttpKernel\\\\Exception\\\\NotFoundHttpException"
+                                        },
+                                        "file": {
+                                            "type": "string",
+                                            "example": "/var/www/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php"
+                                        },
+                                        "line": {
+                                            "type": "integer",
+                                            "example": 636
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Получить список продуктов",
+                "description": "Возвращает список продуктов с возможностью пагинации.",
+                "operationId": "getProducts",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Номер страницы для пагинации",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Успешный ответ",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Баварская"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Описание продукта"
+                                                    },
+                                                    "image_path": {
+                                                        "type": "string",
+                                                        "example": "https://via.placeholder.com/640x480.png"
+                                                    },
+                                                    "category_id": {
+                                                        "type": "integer",
+                                                        "example": 8
+                                                    },
+                                                    "items": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "id": {
+                                                                    "type": "integer",
+                                                                    "example": 1
+                                                                },
+                                                                "price": {
+                                                                    "type": "string",
+                                                                    "example": "681.24"
+                                                                },
+                                                                "stock": {
+                                                                    "type": "integer",
+                                                                    "example": 66
+                                                                },
+                                                                "size": {
+                                                                    "type": "integer",
+                                                                    "example": 35
+                                                                },
+                                                                "dough_type": {
+                                                                    "type": "string",
+                                                                    "example": "Традиционное"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "pagination": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                },
+                                                "per_page": {
+                                                    "type": "integer",
+                                                    "example": 15
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 20
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Products retrieved successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Internal Server Error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products/{product}": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Получить информацию о продукте",
+                "operationId": "e51571f8a028e4d309e66f889c027c22",
+                "parameters": [
+                    {
+                        "name": "product",
+                        "in": "path",
+                        "description": "ID продукта",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 5
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Успешный ответ",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Кантри-пицца"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "Velit et earum illum sit adipisci consequatur occaecati."
+                                                },
+                                                "image_path": {
+                                                    "type": "string",
+                                                    "format": "url",
+                                                    "example": "https://via.placeholder.com/640x480.png/0022ff?text=dolorem"
+                                                },
+                                                "category_id": {
+                                                    "type": "integer",
+                                                    "example": 8
+                                                },
+                                                "items": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 5
+                                                            },
+                                                            "price": {
+                                                                "type": "string",
+                                                                "example": "438.55"
+                                                            },
+                                                            "stock": {
+                                                                "type": "integer",
+                                                                "example": 2
+                                                            },
+                                                            "size": {
+                                                                "type": "integer",
+                                                                "example": 20
+                                                            },
+                                                            "dough_type": {
+                                                                "type": "string",
+                                                                "example": "Тонкое"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Product retrieved successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Продукт не найден",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No query results for model [App\\\\Models\\\\Product] 50"
+                                        },
+                                        "exception": {
+                                            "type": "string",
+                                            "example": "Symfony\\\\Component\\\\HttpKernel\\\\Exception\\\\NotFoundHttpException"
+                                        },
+                                        "file": {
+                                            "type": "string",
+                                            "example": "/var/www/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php"
+                                        },
+                                        "line": {
+                                            "type": "integer",
+                                            "example": 636
+                                        },
+                                        "trace": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "Addresses",
+            "description": "Addresses"
+        },
+        {
+            "name": "Cart",
+            "description": "Cart"
+        },
+        {
+            "name": "Categories",
+            "description": "Categories"
+        },
+        {
+            "name": "Products",
+            "description": "Products"
+        }
+    ]
+}

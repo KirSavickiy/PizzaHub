@@ -9,6 +9,13 @@ use Illuminate\Validation\ValidationException;
 
 class CategoryRepository implements CategoryRepositoryInterface
 {
+    protected Category $category;
+
+    public function __construct(Category $category)
+    {
+        $this->category = $category;
+    }
+
     /**
      * @throws ValidationException
      * @throws CategoryNotFoundException
@@ -16,10 +23,13 @@ class CategoryRepository implements CategoryRepositoryInterface
     public function getCategoryById(string $id): Category
     {
         $id = IdValidatorService::validateId($id, 'categories');
-        $category = Category::query()->find($id);
+
+        $category = $this->category->find($id);
+
         if (!$category) {
             throw new CategoryNotFoundException($id);
         }
+
         return $category;
     }
 }

@@ -13,9 +13,11 @@ use App\Exceptions\Auth\AuthenticationException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\Address\AddressRequest;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Validation\ValidationException;
 
 class AddressController extends Controller
 {
+
     /**
      * @throws AuthenticationException
      * @throws GetAddressException
@@ -35,8 +37,11 @@ class AddressController extends Controller
         return $action->handle($request->validated());
     }
 
+
     /**
-     * Display the specified resource.
+     * @throws AuthenticationException
+     * @throws ValidationException
+     * @throws GetAddressException
      */
     public function show(string $id, GetAddressByIdAction $action): JsonResponse
     {
@@ -44,7 +49,10 @@ class AddressController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @throws AddressException
+     * @throws AuthenticationException
+     * @throws GetAddressException
+     * @throws ValidationException
      */
     public function update(string $id, AddressRequest $request, UpdateAddressAction $action): JsonResponse
     {
@@ -52,7 +60,9 @@ class AddressController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @throws AuthenticationException
+     * @throws ValidationException
+     * @throws GetAddressException
      */
     public function destroy(string $id, DeleteAddressAction $action): JsonResponse
     {

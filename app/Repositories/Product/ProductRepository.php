@@ -15,7 +15,11 @@ use Illuminate\Validation\ValidationException;
 
 class ProductRepository implements ProductRepositoryInterface
 {
-    public function __construct(protected CartItemRepository $cartItemRepository) {}
+    public function __construct(
+        protected CartItemRepository $cartItemRepository,
+        protected Product $product,
+        protected ProductItem $productItem
+    ) {}
 
     /**
      * @throws ValidationException
@@ -24,23 +28,30 @@ class ProductRepository implements ProductRepositoryInterface
     public function getProductById(string $id): Product
     {
         $id = IdValidatorService::validateId($id, 'products');
-        $product = Product::query()->find($id);
+
+        $product = $this->product->find($id);
+
         if (!$product) {
             throw new ProductNotFoundException($id);
         }
+
         return $product;
     }
 
     /**
      * @throws ProductItemNotFoundException
+     * @throws ValidationException
      */
     public function getProductItemById(string $id): ProductItem
     {
         $id = IdValidatorService::validateId($id, 'product_items');
-        $productItem = ProductItem::query()->find($id);
+
+        $productItem = $this->productItem->find($id);
+
         if (!$productItem) {
             throw new ProductItemNotFoundException($id);
         }
+
         return $productItem;
     }
 
@@ -50,28 +61,24 @@ class ProductRepository implements ProductRepositoryInterface
     }
 
     /**
-     * @throws ProductNotFoundException
      * @throws ProductItemNotFoundException
+     * @throws ValidationException
      */
     public function getProductItemByCartItem(CartItem $cartItem): ProductItem
     {
-       $productItemId = $cartItem->product_item_id;
-
-       return $this->getProductItemById($productItemId);
+        return $this->getProductItemById($cartItem->product_item_id);
     }
-
 
     /**
      * @throws ProductItemNotFoundException
      * @throws ProductNotFoundInCartException
-     * @throws ProductNotFoundException
      * @throws ValidationException
      */
     public function getProductItemIdByCartItemId(Cart $cart, string $id): int
     {
-        $cartItem = $this->cartItemRepository->getCartItemById($cart ,$id);
+        $cartItem = $this->cartItemRepository->getCartItemById($cart, $id);
         $productItem = $this->getProductItemByCartItem($cartItem);
+
         return $productItem->id;
     }
-
 }

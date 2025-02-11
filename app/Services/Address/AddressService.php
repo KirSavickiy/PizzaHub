@@ -22,6 +22,7 @@ class AddressService
      * @throws GetAddressException
      * @throws AuthenticationException
      * @throws ValidationException
+     * @throws AddressException
      */
     public function getById(string $id): Address
     {
@@ -78,6 +79,7 @@ class AddressService
      * @throws AuthenticationException
      * @throws GetAddressException
      * @throws ValidationException
+     * @throws AddressException
      */
     public function delete(string $id): void
     {
@@ -100,11 +102,11 @@ class AddressService
     /**
      * @throws GetAddressException
      * @throws AuthenticationException
-     * @throws ValidationException
+     * @throws AddressException|ValidationException
      */
     private function findAddressOrFail(string $id): Address
     {
-        $id = IdValidatorService::validateId($id, 'addresses');
+        $id = IdValidatorService::validateId($id);
         $address = Address::where('id', $id)
             ->where('user_id', $this->getUserId())
             ->first();

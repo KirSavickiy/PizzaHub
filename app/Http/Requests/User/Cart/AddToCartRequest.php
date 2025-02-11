@@ -23,7 +23,6 @@ class AddToCartRequest extends FormRequest
     {
         return [
             'product_item_id' => 'bail|required|int|exists:product_items,id',
-            'cart_id' => 'bail|nullable|exists:carts,session_id',
         ];
     }
     public function messages(): array

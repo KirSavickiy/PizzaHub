@@ -27,5 +27,4 @@ class GetCartAction extends CartAction
             'message' => 'Products retrieved successfully',
         ], 200);
     }
-
 }

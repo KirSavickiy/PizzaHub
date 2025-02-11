@@ -12,7 +12,6 @@ use Illuminate\Http\JsonResponse;
 
 class CategoryController extends Controller
 {
-
     /**
      * Store a newly created resource in storage.
      * @throws CreationException
@@ -21,7 +20,6 @@ class CategoryController extends Controller
     {
         return $action->handle($request->validated());
     }
-
 
     /**
      * Update the specified resource in storage.
@@ -39,5 +37,5 @@ class CategoryController extends Controller
     {
         return $action->handle($id);
     }
-
 }
+

@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,5 +18,10 @@ class DatabaseSeeder extends Seeder
         $this->call(ProductSeeder::class);
         $this->call(CartSeeder::class);
         $this->call(OrderSeeder::class);
+
+        Artisan::call('app:update-postman-token');
+
+        $this->command->info('Postman JSON обновлен с новым токеном!');
+
     }
 }

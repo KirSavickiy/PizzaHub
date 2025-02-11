@@ -134,7 +134,7 @@ class CartControllerTest extends TestCase
     public function test_can_update_product_in_cart_for_authenticated_user():void
     {
         $cartData = [
-            'quantity' => rand(1, 10),
+            'quantity' => 2,
         ];
         $this->actingAs($this->user);
         $response = $this->put('/api/cart/update/'. $this->cartItem->id, $cartData);
@@ -144,7 +144,7 @@ class CartControllerTest extends TestCase
     public function test_cannot_update_product_in_cart_for_authenticated_user_with_wrong_data():void
     {
         $cartData = [
-            'wrong' => rand(1, 10),
+            'wrong' => 2,
         ];
         $this->actingAs($this->user);
         $response = $this->put('/api/cart/update/'. $this->cartItem->id, $cartData);
@@ -154,7 +154,7 @@ class CartControllerTest extends TestCase
     public function test_cannot_update_product_in_cart_for_authenticated_user_with_wrong_id():void
     {
         $cartData = [
-            'quantity' => rand(1, 5),
+            'quantity' => 2,
         ];
         $this->actingAs($this->user);
         $response = $this->put('/api/cart/update/'. '99999', $cartData);
@@ -164,7 +164,7 @@ class CartControllerTest extends TestCase
     public function test_cannot_update_product_in_cart_for_unauthenticated_user_without_cart_id():void
     {
         $cartData = [
-            'quantity' => rand(1, 5),
+            'quantity' => 2,
         ];
         $response = $this->put('/api/cart/update/'. $this->cartItem->id, $cartData);
         $response->assertStatus(Response::HTTP_NOT_FOUND);
@@ -173,7 +173,7 @@ class CartControllerTest extends TestCase
     public function test_can_update_product_in_cart_for_authenticated_user_with_cart_id():void
     {
         $cartData = [
-            'quantity' => rand(1, 5),
+            'quantity' => 2,
         ];
         $response = $this->put('/api/cart/update/'. $this->cartGuestItem->id . '?cart-id='. $this->cart->session_id, $cartData);
         $response->assertStatus(Response::HTTP_OK);
@@ -182,7 +182,7 @@ class CartControllerTest extends TestCase
     public function test_cannot_update_product_in_cart_for_unauthenticated_user_with_wrong_cart_id():void
     {
         $cartData = [
-            'quantity' => rand(1, 10),
+            'quantity' => 2,
         ];
         $response = $this->put('/api/cart/update/'. $this->cartGuestItem->id . '?cart-id='. (string) Str::uuid(), $cartData);
         $response->assertStatus(Response::HTTP_NOT_FOUND);

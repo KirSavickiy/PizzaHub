@@ -3,15 +3,17 @@
 namespace App\Actions\User\Cart;
 
 use App\Exceptions\Cart\CartNotFoundException;
-use App\Exceptions\Cart\ProductNotFoundInCartException;
-use App\Http\Requests\User\Cart\RemoveItemCartRequest;
 use App\Http\Resources\Cart\CartResource;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\JsonResponse;
 
 class DeleteItemCartAction extends CartAction
 {
+    use AuthorizesRequests;
     /**
      * @throws CartNotFoundException
+     * @throws AuthorizationException
      */
     public function handle(?string $cartId, string $id):JsonResponse
     {
@@ -22,7 +24,8 @@ class DeleteItemCartAction extends CartAction
             throw new CartNotFoundException();
         }
 
-        $this->cartService->removeProduct($cart, $id);
+        $item = $this->cartService->removeProduct($cart, $id);
+        $this->authorize('delete', [$cart, $item]);
 
         return response()->json([
             'success' => true,

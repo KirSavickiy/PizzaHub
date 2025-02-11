@@ -20,7 +20,6 @@ use Illuminate\Validation\ValidationException;
 
 class OrderService implements OrderServiceInterface
 {
-
     public function __construct(
         protected AuthService $authService,
         protected CartServiceInterface $cartService,
@@ -28,9 +27,7 @@ class OrderService implements OrderServiceInterface
     ) {}
 
     /**
-     * @throws AuthenticationException
-     * @throws OrderCreationException
-     * @throws EmptyCartException
+     * @throws AuthenticationException|OrderCreationException|EmptyCartException
      */
     public function createOrder(array $data): Order
     {
@@ -73,9 +70,7 @@ class OrderService implements OrderServiceInterface
     }
 
     /**
-     * @throws AuthenticationException
-     * @throws ValidationException
-     * @throws GetOrdersException
+     * @throws AuthenticationException|ValidationException|GetOrdersException
      */
     public function getOrderById(string $id): Order
     {

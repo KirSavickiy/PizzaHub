@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Actions\Auth\AuthUser;
 use App\Actions\Auth\LogOutUser;
 use App\Actions\Auth\RegisterUser;
+use App\Exceptions\Auth\AuthenticationException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
@@ -14,11 +15,17 @@ use Illuminate\Http\JsonResponse;
 
 class AuthController extends Controller
 {
+    /**
+     * @throws AuthenticationException
+     */
     public function login(LoginRequest $request, AuthUser $action): JsonResponse
     {
         return $action->handle($request);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function register(RegisterRequest $request, RegisterUser $action): JsonResponse
     {
         return $action->handle($request);

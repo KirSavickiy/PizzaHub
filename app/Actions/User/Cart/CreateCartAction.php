@@ -8,7 +8,7 @@ use Illuminate\Http\JsonResponse;
 
 class CreateCartAction extends CartAction
 {
-    public function handle(CreateCartRequest $request): JsonResponse
+    public function handle(): JsonResponse
     {
         $cart = $this->getCart();
 

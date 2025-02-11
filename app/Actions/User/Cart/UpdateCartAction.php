@@ -4,16 +4,23 @@ namespace App\Actions\User\Cart;
 
 use App\Exceptions\Cart\CartNotFoundException;
 use App\Exceptions\Cart\ProductNotFoundInCartException;
-use App\Http\Requests\User\Cart\UpdateCartItemRequest;
+use App\Exceptions\Product\ProductOutOfLimitsException;
+use App\Exceptions\Product\ProductOutOfStockException;
 use App\Http\Resources\Cart\CartResource;
-use App\Models\CartItem;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\JsonResponse;
 
 class UpdateCartAction extends CartAction
 {
+    use AuthorizesRequests;
+
     /**
      * @throws CartNotFoundException
+     * @throws ProductOutOfStockException
+     * @throws ProductOutOfLimitsException
      * @throws ProductNotFoundInCartException
+     * @throws AuthorizationException
      */
     public function handle(array $data, ?string $cartId, string $id): JsonResponse
     {
@@ -29,11 +36,10 @@ class UpdateCartAction extends CartAction
         $this->cartValidatorService->validateStock($cart, $productId, $quantity, 'update');
         $this->cartValidatorService->validateCartLimits($cart, $productId, $quantity, 'update');
 
+        $item = $this->cartService->updateQuantity($cart, $id, $quantity)
+            ?? throw new ProductNotFoundInCartException();
 
-        if(!$this->cartService->updatedQuantity($cart, $id, $quantity)){
-            throw new ProductNotFoundInCartException();
-        }
-
+        $this->authorize('delete', [$cart, $item]);
         $cart->load('items');
 
         return response()->json([
@@ -43,6 +49,4 @@ class UpdateCartAction extends CartAction
             'message' => 'Product successfully updated in the cart.',
         ], 200);
     }
-
-
 }
