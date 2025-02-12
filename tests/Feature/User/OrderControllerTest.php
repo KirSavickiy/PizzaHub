@@ -72,7 +72,7 @@ class OrderControllerTest extends TestCase
 
     }
 
-    public function testCanRetrieveOrderForAuthenticatedUser(): void
+    public function test_can_retrieve_order_for_authenticated_user(): void
     {
         $this->actingAs($this->user);
         $response = $this->get('/api/orders');
@@ -87,13 +87,13 @@ class OrderControllerTest extends TestCase
         ]);
     }
 
-    public function testCannotRetrieveOrderForUnauthenticatedUser(): void
+    public function test_cannot_retrieve_order_for_unauthenticated_user(): void
     {
         $response = $this->get('/api/orders');
         $response->assertStatus(Response::HTTP_UNAUTHORIZED);
     }
 
-    public function testCanRetrieveOrderByIdForAuthenticatedUser(): void
+    public function test_can_retrieve_order_by_id_for_authenticated_user(): void
     {
         $this->actingAs($this->user);
         $response = $this->get('/api/orders/'.$this->order->id);
@@ -108,13 +108,13 @@ class OrderControllerTest extends TestCase
         ]);
     }
 
-    public function testCanRetrieveOrderByIdForUnauthenticatedUser(): void
+    public function test_can_retrieve_order_by_id_for_unauthenticated_user(): void
     {
         $response = $this->get('/api/orders/'.$this->order->id);
         $response->assertStatus(Response::HTTP_UNAUTHORIZED);
     }
 
-    public function testCanCreateOrderForAuthenticatedUser(): void
+    public function test_can_create_order_for_authenticated_user(): void
     {
         $orderData = [
             'delivery_method' => 'delivery',
@@ -126,9 +126,34 @@ class OrderControllerTest extends TestCase
         $this->actingAs($this->user);
         $response = $this->post('/api/orders', $orderData);
         $response->assertStatus(Response::HTTP_CREATED);
+
+        $orderId = $response->json('data.id');
+        $order = Order::find($orderId);
+
+        $this->assertNotNull($order, 'Заказ не был создан в базе данных');
+
+        $this->assertDatabaseHas('orders', [
+            'id' => $order->id,
+            'user_id' => $this->user->id,
+            'delivery_method' => 'delivery',
+            'payment_method' => 'card',
+            'delivery_time' => '2025-02-04 15:30:45',
+            'address_id' => $this->address->id,
+        ]);
+
+        foreach ($this->user->cart->items as $cartItem) {
+            $this->assertDatabaseHas('order_items', [
+                'order_id' => $order->id,
+                'product_item_id' => $cartItem->product_item_id,
+                'quantity' => $cartItem->quantity,
+                'price' => $cartItem->price,
+            ]);
+        }
+
+        $this->assertDatabaseMissing('cart_items', ['cart_id' => $this->user->cart->id]);
     }
 
-    public function testCannotCreateOrderForUnauthenticatedUser(): void
+    public function test_cannot_create_order_for_unauthenticated_user(): void
     {
         $orderData = [
             'delivery_method' => 'delivery',
@@ -140,6 +165,5 @@ class OrderControllerTest extends TestCase
         $response = $this->post('/api/orders', $orderData);
         $response->assertStatus(Response::HTTP_UNAUTHORIZED);
     }
-
-
 }
+
