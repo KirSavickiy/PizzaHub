@@ -46,6 +46,8 @@ class UpdatePostmanToken extends Command
 
     private function updatePostmanJson($adminToken, $userToken): void
     {
+        $baseUrl = env('APP_URL');
+        $basePort = env('APP_PORT');
         $postmanFile = base_path('/postman/Tokens.postman_environment.json');
 
         if (!file_exists($postmanFile)) {
@@ -66,6 +68,13 @@ class UpdatePostmanToken extends Command
             if ($variable['key'] === 'user_token') {
                 $variable['value'] = $userToken;
             }
+            if ($variable['key'] === 'app_url'){
+                $variable['value'] = $baseUrl;
+            }
+            if ($variable['key'] === 'app_port'){
+                $variable['value'] = $basePort;
+            }
+
         }
         file_put_contents($postmanFile, json_encode($postmanData, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
         $this->info("Postman JSON обновлён.");

@@ -1,932 +1,937 @@
 {
-  "info": {
-    "_postman_id": "7c818886-33f7-4236-8d47-da7ec59f1ec9",
-    "name": "PizzaHubRestApi",
-    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
-    "_exporter_id": "37887542"
-  },
-  "item": [
-    {
-      "name": "Admin",
-      "item": [
-        {
-          "name": "Products",
-          "item": [
-            {
-              "name": "Create Product",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": {
-                    "token": "{{admin_token}}"
-                  }
-                },
-                "method": "POST",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"name\": \"Пицца 2026\",\n    \"category_id\": 6,\n    \"items\": [\n        {\"price\": 123.22, \"stock\": 10},\n        {\"price\": 125.22, \"stock\": 100}\n    ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": "http://localhost:8081/api/admin/products"
-              },
-              "response": []
-            },
-            {
-              "name": "Update Product",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": {
-                    "token": "{{admin_token}}"
-                  }
-                },
-                "method": "PUT",
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"name\": \"Пицца 2031\",\n    \"category_id\": 6\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": "http://localhost:8081/api/admin/products/14"
-              },
-              "response": []
-            },
-            {
-              "name": "Update Product Item",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": {
-                    "token": "{{admin_token}}"
-                  }
-                },
-                "method": "PUT",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"price\": 10.21,\n    \"stock\": 10\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": "http://localhost:8081/api/admin/product/items/14"
-              },
-              "response": []
-            },
-            {
-              "name": "Delete Product",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": {
-                    "token": "{{admin_token}}"
-                  }
-                },
-                "method": "DELETE",
-                "header": [],
-                "url": "http://localhost:8081/api/admin/products/5"
-              },
-              "response": []
-            },
-            {
-              "name": "Delete Product Item",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": {
-                    "token": "{{admin_token}}"
-                  }
-                },
-                "method": "DELETE",
-                "header": [],
-                "url": "http://localhost:8081/api/admin/product/items/4"
-              },
-              "response": []
-            }
-          ]
-        },
-        {
-          "name": "Category",
-          "item": [
-            {
-              "name": "Create Category",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": {
-                    "token": "{{admin_token}}"
-                  }
-                },
-                "method": "POST",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"name\": \"Лучшие пиццgы 2025\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": "http://localhost:8081/api/admin/categories"
-              },
-              "response": []
-            },
-            {
-              "name": "Update Category",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": {
-                    "token": "{{admin_token}}"
-                  }
-                },
-                "method": "PUT",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"name\": \"Hegllo\",\n    \"dd\": 5\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": "http://localhost:8081/api/admin/categories/5"
-              },
-              "response": []
-            },
-            {
-              "name": "Delete Category",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": {
-                    "token": "{{admin_token}}"
-                  }
-                },
-                "method": "DELETE",
-                "header": [],
-                "url": "http://localhost:8081/api/admin/categories/5"
-              },
-              "response": []
-            }
-          ]
-        },
-        {
-          "name": "Order",
-          "item": [
-            {
-              "name": "Get Orders",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": {
-                    "token": "{{admin_token}}"
-                  }
-                },
-                "method": "GET",
-                "header": [],
-                "url": "http://localhost:8081/api/admin/orders"
-              },
-              "response": []
-            },
-            {
-              "name": "Get Order By ID",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": {
-                    "token": "{{admin_token}}"
-                  }
-                },
-                "method": "GET",
-                "header": [],
-                "url": "http://localhost:8081/api/admin/orders/500"
-              },
-              "response": []
-            },
-            {
-              "name": "Change Status",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": {
-                    "token": "{{admin_token}}"
-                  }
-                },
-                "method": "POST",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"status\": \"Выполнен\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": "http://localhost:8081/api/admin/orders/4/status"
-              },
-              "response": []
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Auth",
-      "item": [
-        {
-          "name": "Login As User",
-          "request": {
-            "auth": {
-              "type": "noauth"
-            },
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "email",
-                  "value": "test@user.com",
-                  "type": "text"
-                },
-                {
-                  "key": "password",
-                  "value": "password",
-                  "type": "text"
-                }
-              ]
-            },
-            "url": "http://localhost:8081/api/login"
-          },
-          "response": []
-        },
-        {
-          "name": "Login As Admin",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "email",
-                "value": "test@admin.com",
-                "type": "text"
-              },
-              {
-                "key": "password",
-                "value": "password",
-                "type": "text"
-              }
-            ],
-            "url": "http://localhost:8081/api/login"
-          },
-          "response": []
-        },
-        {
-          "name": "Register",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "first_name",
-                  "value": "Kiryl",
-                  "type": "text"
-                },
-                {
-                  "key": "email",
-                  "value": "email@com.com",
-                  "type": "text"
-                },
-                {
-                  "key": "phone",
-                  "value": "37533666746223",
-                  "type": "text"
-                },
-                {
-                  "key": "password",
-                  "value": "password",
-                  "type": "text"
-                },
-                {
-                  "key": "password_confirmation",
-                  "value": "password",
-                  "type": "text"
-                },
-                {
-                  "key": "last_name",
-                  "value": "Sav",
-                  "type": "text",
-                  "disabled": true
-                }
-              ]
-            },
-            "url": {
-              "raw": "http://localhost:8081/api/register?cart-id=47a6d8b4-0923-4b77-8d28-8f02de4d314c",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8081",
-              "path": [
-                "api",
-                "register"
-              ],
-              "query": [
-                {
-                  "key": "cart-id",
-                  "value": "47a6d8b4-0923-4b77-8d28-8f02de4d314c"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "LogOut",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "url": "http://localhost:8081/api/logout"
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "User",
-      "item": [
-        {
-          "name": "Cart",
-          "item": [
-            {
-              "name": "Add To Cart",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": {
-                    "token": "{{user_token}}"
-                  }
-                },
-                "method": "POST",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"product_item_id\": 7\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": "http://localhost:8081/api/cart/add/"
-              },
-              "response": []
-            },
-            {
-              "name": "Get Cart",
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true,
-                "followAuthorizationHeader": false
-              },
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": {
-                    "token": "{{user_token}}"
-                  }
-                },
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "\tBearer 8|RyBwMwHP0RTF3wbKlOBUDyOU0Jrqo1VITzXsZ2d16e0c50aa",
-                    "type": "text",
-                    "disabled": true
-                  },
-                  {
-                    "key": "cart-id",
-                    "value": "8e2f8b25-b8a1-4f8b-98f7-0b6c9b8378b4",
-                    "type": "text",
-                    "disabled": true
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"cart-id\": \"c852db11-5c13-4288-90c7-61e665ee4135\"\n    }",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "http://localhost:8081/api/cart",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8081",
-                  "path": [
-                    "api",
-                    "cart"
-                  ],
-                  "query": [
-                    {
-                      "key": "X-Session-ID",
-                      "value": "ZbFrsSCepv2mqn3vJzVO2oVHxsUkJ6048DQ3HQ1U",
-                      "disabled": true
-                    }
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "Delete Cart Item",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": {
-                    "token": "{{user_token}}"
-                  }
-                },
-                "method": "DELETE",
-                "header": [],
-                "url": "http://localhost:8081/api/cart/remove/5"
-              },
-              "response": []
-            },
-            {
-              "name": "Update Quantity",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": {
-                    "token": "{{user_token}}"
-                  }
-                },
-                "method": "PUT",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"quantity\": 3\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": "http://localhost:8081/api/cart/update/58"
-              },
-              "response": []
-            }
-          ]
-        },
-        {
-          "name": "Addresses",
-          "item": [
-            {
-              "name": "Get Addresses",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": {
-                    "token": "{{user_token}}"
-                  }
-                },
-                "method": "GET",
-                "header": [],
-                "url": "http://localhost:8081/api/addresses"
-              },
-              "response": []
-            },
-            {
-              "name": "Create Address",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": {
-                    "token": "{{user_token}}"
-                  }
-                },
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "formdata",
-                  "formdata": [
-                    {
-                      "key": "address_line_1",
-                      "value": "Советскуа",
-                      "type": "text"
-                    },
-                    {
-                      "key": "city",
-                      "value": "Москва",
-                      "type": "text"
-                    }
-                  ]
-                },
-                "url": "http://localhost:8081/api/addresses"
-              },
-              "response": []
-            },
-            {
-              "name": "Get Address By ID",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": {
-                    "token": "{{user_token}}"
-                  }
-                },
-                "method": "GET",
-                "header": [],
-                "url": "http://localhost:8081/api/addresses/4"
-              },
-              "response": []
-            },
-            {
-              "name": "Update Address",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": {
-                    "token": "{{user_token}}"
-                  }
-                },
-                "method": "PUT",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"address_line_1\": \"Мира 26\",\n    \"city\": \"Миснк\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": "http://localhost:8081/api/addresses/21"
-              },
-              "response": []
-            },
-            {
-              "name": "Delete Address",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": {
-                    "token": "{{user_token}}"
-                  }
-                },
-                "method": "DELETE",
-                "header": [],
-                "url": "http://localhost:8081/api/addresses/20"
-              },
-              "response": []
-            }
-          ]
-        },
-        {
-          "name": "Orders",
-          "item": [
-            {
-              "name": "Get Orders",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": {
-                    "token": "{{user_token}}"
-                  }
-                },
-                "method": "GET",
-                "header": [],
-                "url": "http://localhost:8081/api/orders/"
-              },
-              "response": []
-            },
-            {
-              "name": "Create Order",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": {
-                    "token": "{{user_token}}"
-                  }
-                },
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"delivery_method\": \"pickup\",\n    \"payment_method\": \"cash\",\n    \"delivery_time\": \"2025-01-31 15:00:00\",\n    \"address_id\": 1\n\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": "http://localhost:8081/api/orders/"
-              },
-              "response": []
-            },
-            {
-              "name": "Get Order By ID",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": {
-                    "token": "{{user_token}}"
-                  }
-                },
-                "method": "GET",
-                "header": [],
-                "url": "http://localhost:8081/api/orders/1"
-              },
-              "response": []
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Guest",
-      "item": [
-        {
-          "name": "Cart",
-          "item": [
-            {
-              "name": "Get Cart",
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "http://localhost:8081/api/cart?cart-id=b4ab6310-1a3e-43d9-b09f-6587bf70a037",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8081",
-                  "path": [
-                    "api",
-                    "cart"
-                  ],
-                  "query": [
-                    {
-                      "key": "cart-id",
-                      "value": "b4ab6310-1a3e-43d9-b09f-6587bf70a037"
-                    }
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "Create Cart",
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json",
-                    "type": "text"
-                  }
-                ],
-                "url": "http://localhost:8081/api/cart"
-              },
-              "response": []
-            },
-            {
-              "name": "Add to Cart",
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "POST",
-                "header": [],
-                "url": {
-                  "raw": "http://localhost:8081/api/cart/add?cart-id=b4ab6310-1a3e-43d9-b09f-6587bf70a037",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8081",
-                  "path": [
-                    "api",
-                    "cart",
-                    "add"
-                  ],
-                  "query": [
-                    {
-                      "key": "cart-id",
-                      "value": "b4ab6310-1a3e-43d9-b09f-6587bf70a037"
-                    }
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "Updated Quantity",
-              "request": {
-                "method": "PUT",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"quantity\": 2\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "http://localhost:8081/api/cart/update?cart-id=b4ab6310-1a3e-43d9-b09f-6587bf70a037",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8081",
-                  "path": [
-                    "api",
-                    "cart",
-                    "update"
-                  ],
-                  "query": [
-                    {
-                      "key": "cart-id",
-                      "value": "b4ab6310-1a3e-43d9-b09f-6587bf70a037"
-                    }
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "Delete Cart Item",
-              "request": {
-                "method": "DELETE",
-                "header": [],
-                "url": "http://localhost:8081/api/cart/remove/4cart-id=b4ab6310-1a3e-43d9-b09f-6587bf70a037"
-              },
-              "response": []
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Products",
-      "item": [
-        {
-          "name": "Get Products",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "var template = `",
-                  "<style type=\"text/css\">",
-                  "    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}",
-                  "    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}",
-                  "    .tftable tr {background-color:#ffffff;}",
-                  "    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}",
-                  "    .tftable tr:hover {background-color:#e0ffff;}",
-                  "</style>",
-                  "",
-                  "<table class=\"tftable\" border=\"1\">",
-                  "    <tr>",
-                  "        <th>ID</th>",
-                  "        <th>Name</th>",
-                  "        <th>Description</th>",
-                  "        <th>Category ID</th>",
-                  "    </tr>",
-                  "    ",
-                  "    {{#each response.data}}",
-                  "        <tr>",
-                  "            <td>{{id}}</td>",
-                  "            <td>{{name}}</td>",
-                  "            <td>{{description}}</td>",
-                  "            <td>{{category_id}}</td>",
-                  "        </tr>",
-                  "    {{/each}}",
-                  "</table>",
-                  "`;",
-                  "",
-                  "function constructVisualizerPayload() {",
-                  "    return {response: pm.response.json()}",
-                  "}",
-                  "",
-                  "pm.visualizer.set(template, constructVisualizerPayload());"
-                ],
-                "type": "text/javascript",
-                "packages": {}
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text",
-                "disabled": true
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:8081/api/products/?page=",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8081",
-              "path": [
-                "api",
-                "products",
-                ""
-              ],
-              "query": [
-                {
-                  "key": "page",
-                  "value": ""
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Product By Id",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": "http://localhost:8081/api/products/50"
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Categories",
-      "item": [
-        {
-          "name": "Get Categories",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": "http://localhost:8081/api/categories"
-          },
-          "response": []
-        },
-        {
-          "name": "Get Category By Id",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": "http://localhost:8081/api/categories/2"
-          },
-          "response": []
-        }
-      ]
-    }
-  ]
+	"info": {
+		"_postman_id": "5dd3a4d3-1f1c-4b48-a7e0-37e612e08e3a",
+		"name": "PizzaHubRestApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "37887542"
+	},
+	"item": [
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Products",
+					"item": [
+						{
+							"name": "Create Product",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{admin_token}}"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Пицца 2026\",\n    \"category_id\": 6,\n    \"items\": [\n        {\"price\": 123.22, \"stock\": 10},\n        {\"price\": 125.22, \"stock\": 100}\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{app_url}}/api/admin/products"
+							},
+							"response": []
+						},
+						{
+							"name": "Update Product",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{admin_token}}"
+									}
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Пицца 2031\",\n    \"category_id\": 6\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{app_url}}/api/admin/products/14"
+							},
+							"response": []
+						},
+						{
+							"name": "Update Product Item",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{admin_token}}"
+									}
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"price\": 10.21,\n    \"stock\": 10\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{app_url}}/api/admin/product/items/14"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Product",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{admin_token}}"
+									}
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": "{{app_url}}/api/admin/products/5"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Product Item",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{admin_token}}"
+									}
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": "{{app_url}}/api/admin/product/items/4"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Category",
+					"item": [
+						{
+							"name": "Create Category",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{admin_token}}"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Лучшие пиццgы 2025\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{app_url}}/api/admin/categories"
+							},
+							"response": []
+						},
+						{
+							"name": "Update Category",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{admin_token}}"
+									}
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Hegllo\",\n    \"dd\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{app_url}}/api/admin/categories/5"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Category",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{admin_token}}"
+									}
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": "{{app_url}}/api/admin/categories/5"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Order",
+					"item": [
+						{
+							"name": "Get Orders",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{admin_token}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": "{{app_url}}/api/admin/orders"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Order By ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{admin_token}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": "{{app_url}}/api/admin/orders/500"
+							},
+							"response": []
+						},
+						{
+							"name": "Change Status",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{admin_token}}"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"status\": \"Выполнен\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{app_url}}/api/admin/orders/4/status"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login As User",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "test@user.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{app_url}}/api/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Login As Admin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "email",
+								"value": "test@admin.com",
+								"type": "text"
+							},
+							{
+								"key": "password",
+								"value": "password",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test@admin.com\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{app_url}}/api/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "first_name",
+									"value": "Kiryl",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "email@com.com",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "37533666746223",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "Sav",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{app_url}}/api/register?cart-id=47a6d8b4-0923-4b77-8d28-8f02de4d314c",
+							"host": [
+								"{{app_url}}"
+							],
+							"path": [
+								"api",
+								"register"
+							],
+							"query": [
+								{
+									"key": "cart-id",
+									"value": "47a6d8b4-0923-4b77-8d28-8f02de4d314c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LogOut",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{admin_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"url": "{{app_url}}/api/logout"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Cart",
+					"item": [
+						{
+							"name": "Add To Cart",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{user_token}}"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"product_item_id\": 7\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{app_url}}/api/cart/add/"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Cart",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true,
+								"followAuthorizationHeader": false
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{user_token}}"
+									}
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "\tBearer 8|RyBwMwHP0RTF3wbKlOBUDyOU0Jrqo1VITzXsZ2d16e0c50aa",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "cart-id",
+										"value": "8e2f8b25-b8a1-4f8b-98f7-0b6c9b8378b4",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"cart-id\": \"c852db11-5c13-4288-90c7-61e665ee4135\"\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{app_url}}/api/cart",
+									"host": [
+										"{{app_url}}"
+									],
+									"path": [
+										"api",
+										"cart"
+									],
+									"query": [
+										{
+											"key": "X-Session-ID",
+											"value": "ZbFrsSCepv2mqn3vJzVO2oVHxsUkJ6048DQ3HQ1U",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Cart Item",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{user_token}}"
+									}
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": "{{app_url}}/api/cart/remove/5"
+							},
+							"response": []
+						},
+						{
+							"name": "Update Quantity",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{user_token}}"
+									}
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"quantity\": 3\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{app_url}}/api/cart/update/58"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Addresses",
+					"item": [
+						{
+							"name": "Get Addresses",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{user_token}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": "{{app_url}}/api/addresses"
+							},
+							"response": []
+						},
+						{
+							"name": "Create Address",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{user_token}}"
+									}
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "address_line_1",
+											"value": "Советскуа",
+											"type": "text"
+										},
+										{
+											"key": "city",
+											"value": "Москва",
+											"type": "text"
+										}
+									]
+								},
+								"url": "{{app_url}}/api/addresses"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Address By ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{user_token}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": "{{app_url}}/api/addresses/4"
+							},
+							"response": []
+						},
+						{
+							"name": "Update Address",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{user_token}}"
+									}
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"address_line_1\": \"Мира 26\",\n    \"city\": \"Миснк\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{app_url}}/api/addresses/21"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Address",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{user_token}}"
+									}
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": "{{app_url}}/api/addresses/20"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Orders",
+					"item": [
+						{
+							"name": "Get Orders",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{user_token}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": "{{app_url}}/api/orders/"
+							},
+							"response": []
+						},
+						{
+							"name": "Create Order",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{user_token}}"
+									}
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"delivery_method\": \"pickup\",\n    \"payment_method\": \"cash\",\n    \"delivery_time\": \"2025-01-31 15:00:00\",\n    \"address_id\": 1\n\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{app_url}}/api/orders/"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Order By ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{user_token}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": "{{app_url}}/api/orders/1"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Guest",
+			"item": [
+				{
+					"name": "Cart",
+					"item": [
+						{
+							"name": "Get Cart",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{app_url}}/api/cart?cart-id=b4ab6310-1a3e-43d9-b09f-6587bf70a037",
+									"host": [
+										"{{app_url}}"
+									],
+									"path": [
+										"api",
+										"cart"
+									],
+									"query": [
+										{
+											"key": "cart-id",
+											"value": "b4ab6310-1a3e-43d9-b09f-6587bf70a037"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Cart",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": "{{app_url}}/api/cart"
+							},
+							"response": []
+						},
+						{
+							"name": "Add to Cart",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{app_url}}/api/cart/add?cart-id=b4ab6310-1a3e-43d9-b09f-6587bf70a037",
+									"host": [
+										"{{app_url}}"
+									],
+									"path": [
+										"api",
+										"cart",
+										"add"
+									],
+									"query": [
+										{
+											"key": "cart-id",
+											"value": "b4ab6310-1a3e-43d9-b09f-6587bf70a037"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Updated Quantity",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"quantity\": 2\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{app_url}}/api/cart/update?cart-id=b4ab6310-1a3e-43d9-b09f-6587bf70a037",
+									"host": [
+										"{{app_url}}"
+									],
+									"path": [
+										"api",
+										"cart",
+										"update"
+									],
+									"query": [
+										{
+											"key": "cart-id",
+											"value": "b4ab6310-1a3e-43d9-b09f-6587bf70a037"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Cart Item",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:8081/api/cart/remove/4cart-id=b4ab6310-1a3e-43d9-b09f-6587bf70a037"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Get Products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `",
+									"<style type=\"text/css\">",
+									"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}",
+									"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}",
+									"    .tftable tr {background-color:#ffffff;}",
+									"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}",
+									"    .tftable tr:hover {background-color:#e0ffff;}",
+									"</style>",
+									"",
+									"<table class=\"tftable\" border=\"1\">",
+									"    <tr>",
+									"        <th>ID</th>",
+									"        <th>Name</th>",
+									"        <th>Description</th>",
+									"        <th>Category ID</th>",
+									"    </tr>",
+									"    ",
+									"    {{#each response.data}}",
+									"        <tr>",
+									"            <td>{{id}}</td>",
+									"            <td>{{name}}</td>",
+									"            <td>{{description}}</td>",
+									"            <td>{{category_id}}</td>",
+									"        </tr>",
+									"    {{/each}}",
+									"</table>",
+									"`;",
+									"",
+									"function constructVisualizerPayload() {",
+									"    return {response: pm.response.json()}",
+									"}",
+									"",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/api/products/?page=",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"products",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8081/api/products/50"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Get Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8081/api/categories"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Category By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8081/api/categories/2"
+					},
+					"response": []
+				}
+			]
+		}
+	]
 }

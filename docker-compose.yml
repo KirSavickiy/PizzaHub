@@ -40,7 +40,7 @@ services:
     container_name: app
     depends_on:
       - db
-    command: /bin/sh -c "chmod -R 775 /var/www/storage /var/www/bootstrap/cache && php-fpm"
+    command: /bin/sh -c "chmod -R 777 /var/www/storage /var/www/bootstrap/cache && php-fpm"
     networks:
       - app_network
 
