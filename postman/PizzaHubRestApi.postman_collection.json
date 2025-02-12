@@ -1,6 +1,6 @@
 {
   "info": {
-    "_postman_id": "2c9d36b4-7431-47ff-a406-09ce32c5c652",
+    "_postman_id": "7c818886-33f7-4236-8d47-da7ec59f1ec9",
     "name": "PizzaHubRestApi",
     "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
     "_exporter_id": "37887542"
@@ -37,6 +37,36 @@
               "response": []
             },
             {
+              "name": "Update Product",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": {
+                    "token": "{{admin_token}}"
+                  }
+                },
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Пицца 2031\",\n    \"category_id\": 6\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "http://localhost:8081/api/admin/products/14"
+              },
+              "response": []
+            },
+            {
               "name": "Update Product Item",
               "request": {
                 "auth": {
@@ -56,37 +86,7 @@
                     }
                   }
                 },
-                "url": "http://localhost:8081/api/admin/product_items/14"
-              },
-              "response": []
-            },
-            {
-              "name": "Update Product",
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": {
-                    "token": "{{admin_token}}"
-                  }
-                },
-                "method": "PUT",
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"name\": \"Пицца 203fgbff0\",\n    \"category_id\": 6,\n    \"dwdwd\": 5,   \n    \"items\": [\n        {\"price\": 45454, \"stock\": 10},\n        {\"price\": 125.22, \"stock\": 100}\n    ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": "http://localhost:8081/api/admin/products/14"
+                "url": "http://localhost:8081/api/admin/product/items/14"
               },
               "response": []
             },
@@ -116,7 +116,7 @@
                 },
                 "method": "DELETE",
                 "header": [],
-                "url": "http://localhost:8081/api/admin/product_items/4"
+                "url": "http://localhost:8081/api/admin/product/items/4"
               },
               "response": []
             }
@@ -219,7 +219,7 @@
                 },
                 "method": "GET",
                 "header": [],
-                "url": "http://localhost:8081/api/admin/orders/5"
+                "url": "http://localhost:8081/api/admin/orders/500"
               },
               "response": []
             },
@@ -243,7 +243,7 @@
                     }
                   }
                 },
-                "url": "http://localhost:8081/api/admin/orders/2/status"
+                "url": "http://localhost:8081/api/admin/orders/4/status"
               },
               "response": []
             }
