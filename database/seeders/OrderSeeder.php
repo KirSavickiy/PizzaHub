@@ -40,6 +40,7 @@ class OrderSeeder extends Seeder
         foreach ($users as $user) {
             Order::factory()->count(rand(1,4))->create([
                 'user_id' => $user->id,
+                'delivery_method' => 'delivery',
                 'address_id' => $user->addresses->random()->id,]);
         }
 

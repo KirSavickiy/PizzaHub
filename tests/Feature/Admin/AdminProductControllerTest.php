@@ -103,7 +103,7 @@ class AdminProductControllerTest extends TestCase
             'size' => 40,
             'dough_type' => 'Thick',
         ];
-        $response = $this->put('/api/admin/product_items/' . $this->productItem->id, $validData);
+        $response = $this->put('/api/admin/product/items/' . $this->productItem->id, $validData);
         $response->assertStatus(Response::HTTP_OK);
     }
 
@@ -112,7 +112,7 @@ class AdminProductControllerTest extends TestCase
         $response = $this->actingAs($this->user);
         $invalidData = [
         ];
-        $response = $this->put('/api/admin/product_items/' . $this->productItem->id, $invalidData);
+        $response = $this->put('/api/admin/product/items/' . $this->productItem->id, $invalidData);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
@@ -133,14 +133,14 @@ class AdminProductControllerTest extends TestCase
     public function test_admin_can_delete_product_item_successfully(): void
     {
         $response = $this->actingAs($this->user);
-        $response = $this->delete('/api/admin/product_items/' . $this->productItem->id);
+        $response = $this->delete('/api/admin/product/items/' . $this->productItem->id);
         $response->assertStatus(Response::HTTP_OK);
     }
 
     public function test_admin_cannot_delete_product_item_that_does_not_exist():void
     {
         $response = $this->actingAs($this->user);
-        $response = $this->delete('/api/admin/product_items/1000');
+        $response = $this->delete('/api/admin/product/items/1000');
         $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
 }

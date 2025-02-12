@@ -8,10 +8,10 @@ use App\Http\Controllers\User\Order\OrderController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->group(function () {
-    Route::apiResource('products', AdminProductController::class);
-    Route::apiResource('product_items', AdminProductItemController::class)->only(['update', 'destroy']);
+    Route::apiResource('products', AdminProductController::class)->only(['store', 'update', 'destroy']);
+    Route::apiResource('product/items', AdminProductItemController::class)->only(['update', 'destroy']);
 
-    Route::apiResource('categories', AdminCategoryController::class);
+    Route::apiResource('categories', AdminCategoryController::class)->only(['store', 'update', 'destroy']);
 
     Route::post('/orders/{id}/status', [AdminOrderController::class, 'changeStatus']);
     Route::apiResource('orders', OrderController::class)->only(['index', 'show']);

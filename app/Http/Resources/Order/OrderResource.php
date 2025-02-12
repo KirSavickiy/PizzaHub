@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Order;
 
+use App\Http\Resources\Address\AddressResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -21,6 +22,7 @@ class OrderResource extends JsonResource
             'delivery_method' =>  $this->delivery_method,
             'payment_method' => $this->payment_method,
             'delivery_time' => $this->delivery_time,
+            'address' => $this->delivery_method === 'delivery' ? new AddressResource($this->address) : null,
             'items' => OrderItemResource::collection($this->whenLoaded('items')),
         ];
     }

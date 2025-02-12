@@ -1,8 +1,8 @@
 {
   "info": {
-    "_postman_id": "7e8e62bd-8400-4c2e-8da4-bbc5c99c9dc2",
+    "_postman_id": "2c9d36b4-7431-47ff-a406-09ce32c5c652",
     "name": "PizzaHubRestApi",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
     "_exporter_id": "37887542"
   },
   "item": [
@@ -17,13 +17,9 @@
               "request": {
                 "auth": {
                   "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{admin_token}}",
-                      "type": "string"
-                    }
-                  ]
+                  "bearer": {
+                    "token": "{{admin_token}}"
+                  }
                 },
                 "method": "POST",
                 "header": [],
@@ -36,19 +32,7 @@
                     }
                   }
                 },
-                "url": {
-                  "raw": "http://localhost:8081/api/admin/products",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8081",
-                  "path": [
-                    "api",
-                    "admin",
-                    "products"
-                  ]
-                }
+                "url": "http://localhost:8081/api/admin/products"
               },
               "response": []
             },
@@ -57,13 +41,9 @@
               "request": {
                 "auth": {
                   "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{admin_token}}",
-                      "type": "string"
-                    }
-                  ]
+                  "bearer": {
+                    "token": "{{admin_token}}"
+                  }
                 },
                 "method": "PUT",
                 "header": [],
@@ -76,20 +56,7 @@
                     }
                   }
                 },
-                "url": {
-                  "raw": "http://localhost:8081/api/admin/product_items/14",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8081",
-                  "path": [
-                    "api",
-                    "admin",
-                    "product_items",
-                    "14"
-                  ]
-                }
+                "url": "http://localhost:8081/api/admin/product_items/14"
               },
               "response": []
             },
@@ -98,13 +65,9 @@
               "request": {
                 "auth": {
                   "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{admin_token}}",
-                      "type": "string"
-                    }
-                  ]
+                  "bearer": {
+                    "token": "{{admin_token}}"
+                  }
                 },
                 "method": "PUT",
                 "header": [
@@ -123,20 +86,7 @@
                     }
                   }
                 },
-                "url": {
-                  "raw": "http://localhost:8081/api/admin/products/14",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8081",
-                  "path": [
-                    "api",
-                    "admin",
-                    "products",
-                    "14"
-                  ]
-                }
+                "url": "http://localhost:8081/api/admin/products/14"
               },
               "response": []
             },
@@ -145,30 +95,13 @@
               "request": {
                 "auth": {
                   "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{admin_token}}",
-                      "type": "string"
-                    }
-                  ]
+                  "bearer": {
+                    "token": "{{admin_token}}"
+                  }
                 },
                 "method": "DELETE",
                 "header": [],
-                "url": {
-                  "raw": "http://localhost:8081/api/admin/products/5",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8081",
-                  "path": [
-                    "api",
-                    "admin",
-                    "products",
-                    "5"
-                  ]
-                }
+                "url": "http://localhost:8081/api/admin/products/5"
               },
               "response": []
             },
@@ -177,30 +110,13 @@
               "request": {
                 "auth": {
                   "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{admin_token}}",
-                      "type": "string"
-                    }
-                  ]
+                  "bearer": {
+                    "token": "{{admin_token}}"
+                  }
                 },
                 "method": "DELETE",
                 "header": [],
-                "url": {
-                  "raw": "http://localhost:8081/api/admin/product_items/4",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8081",
-                  "path": [
-                    "api",
-                    "admin",
-                    "product_items",
-                    "4"
-                  ]
-                }
+                "url": "http://localhost:8081/api/admin/product_items/4"
               },
               "response": []
             }
@@ -214,13 +130,9 @@
               "request": {
                 "auth": {
                   "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{admin_token}}",
-                      "type": "string"
-                    }
-                  ]
+                  "bearer": {
+                    "token": "{{admin_token}}"
+                  }
                 },
                 "method": "POST",
                 "header": [],
@@ -233,19 +145,7 @@
                     }
                   }
                 },
-                "url": {
-                  "raw": "http://localhost:8081/api/admin/categories",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8081",
-                  "path": [
-                    "api",
-                    "admin",
-                    "categories"
-                  ]
-                }
+                "url": "http://localhost:8081/api/admin/categories"
               },
               "response": []
             },
@@ -254,13 +154,9 @@
               "request": {
                 "auth": {
                   "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{admin_token}}",
-                      "type": "string"
-                    }
-                  ]
+                  "bearer": {
+                    "token": "{{admin_token}}"
+                  }
                 },
                 "method": "PUT",
                 "header": [],
@@ -273,20 +169,7 @@
                     }
                   }
                 },
-                "url": {
-                  "raw": "http://localhost:8081/api/admin/categories/5",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8081",
-                  "path": [
-                    "api",
-                    "admin",
-                    "categories",
-                    "5"
-                  ]
-                }
+                "url": "http://localhost:8081/api/admin/categories/5"
               },
               "response": []
             },
@@ -295,30 +178,13 @@
               "request": {
                 "auth": {
                   "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{admin_token}}",
-                      "type": "string"
-                    }
-                  ]
+                  "bearer": {
+                    "token": "{{admin_token}}"
+                  }
                 },
                 "method": "DELETE",
                 "header": [],
-                "url": {
-                  "raw": "http://localhost:8081/api/admin/categories/5",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8081",
-                  "path": [
-                    "api",
-                    "admin",
-                    "categories",
-                    "5"
-                  ]
-                }
+                "url": "http://localhost:8081/api/admin/categories/5"
               },
               "response": []
             }
@@ -332,29 +198,13 @@
               "request": {
                 "auth": {
                   "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{admin_token}}",
-                      "type": "string"
-                    }
-                  ]
+                  "bearer": {
+                    "token": "{{admin_token}}"
+                  }
                 },
                 "method": "GET",
                 "header": [],
-                "url": {
-                  "raw": "http://localhost:8081/api/admin/orders",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8081",
-                  "path": [
-                    "api",
-                    "admin",
-                    "orders"
-                  ]
-                }
+                "url": "http://localhost:8081/api/admin/orders"
               },
               "response": []
             },
@@ -363,16 +213,13 @@
               "request": {
                 "auth": {
                   "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{admin_token}}",
-                      "type": "string"
-                    }
-                  ]
+                  "bearer": {
+                    "token": "{{admin_token}}"
+                  }
                 },
                 "method": "GET",
-                "header": []
+                "header": [],
+                "url": "http://localhost:8081/api/admin/orders/5"
               },
               "response": []
             },
@@ -381,13 +228,9 @@
               "request": {
                 "auth": {
                   "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{admin_token}}",
-                      "type": "string"
-                    }
-                  ]
+                  "bearer": {
+                    "token": "{{admin_token}}"
+                  }
                 },
                 "method": "POST",
                 "header": [],
@@ -400,21 +243,7 @@
                     }
                   }
                 },
-                "url": {
-                  "raw": "http://localhost:8081/api/admin/orders/2/status",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8081",
-                  "path": [
-                    "api",
-                    "admin",
-                    "orders",
-                    "2",
-                    "status"
-                  ]
-                }
+                "url": "http://localhost:8081/api/admin/orders/2/status"
               },
               "response": []
             }
@@ -428,8 +257,27 @@
         {
           "name": "Login As User",
           "request": {
-            "method": "GET",
-            "header": []
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "test@user.com",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "password",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": "http://localhost:8081/api/login"
           },
           "response": []
         },
@@ -437,7 +285,19 @@
           "name": "Login As Admin",
           "request": {
             "method": "GET",
-            "header": []
+            "header": [
+              {
+                "key": "email",
+                "value": "test@admin.com",
+                "type": "text"
+              },
+              {
+                "key": "password",
+                "value": "password",
+                "type": "text"
+              }
+            ],
+            "url": "http://localhost:8081/api/login"
           },
           "response": []
         },
@@ -456,12 +316,12 @@
                 },
                 {
                   "key": "email",
-                  "value": "kirill.savickiy@yahoo.com23weff",
+                  "value": "email@com.com",
                   "type": "text"
                 },
                 {
                   "key": "phone",
-                  "value": "37533666746223ewff",
+                  "value": "37533666746223",
                   "type": "text"
                 },
                 {
@@ -506,8 +366,9 @@
         {
           "name": "LogOut",
           "request": {
-            "method": "GET",
-            "header": []
+            "method": "POST",
+            "header": [],
+            "url": "http://localhost:8081/api/logout"
           },
           "response": []
         }
@@ -524,45 +385,22 @@
               "request": {
                 "auth": {
                   "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{user_token}}",
-                      "type": "string"
-                    }
-                  ]
+                  "bearer": {
+                    "token": "{{user_token}}"
+                  }
                 },
                 "method": "POST",
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n    \n}",
+                  "raw": "{\n    \"product_item_id\": 7\n}",
                   "options": {
                     "raw": {
                       "language": "json"
                     }
                   }
                 },
-                "url": {
-                  "raw": "http://localhost:8081/api/cart/add/?cart-id=9ba4c140-fc7e-4720-86a5-0aa1f6962d37",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8081",
-                  "path": [
-                    "api",
-                    "cart",
-                    "add",
-                    ""
-                  ],
-                  "query": [
-                    {
-                      "key": "cart-id",
-                      "value": "9ba4c140-fc7e-4720-86a5-0aa1f6962d37"
-                    }
-                  ]
-                }
+                "url": "http://localhost:8081/api/cart/add/"
               },
               "response": []
             },
@@ -575,13 +413,9 @@
               "request": {
                 "auth": {
                   "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{user_token}}",
-                      "type": "string"
-                    }
-                  ]
+                  "bearer": {
+                    "token": "{{user_token}}"
+                  }
                 },
                 "method": "GET",
                 "header": [
@@ -634,16 +468,13 @@
               "request": {
                 "auth": {
                   "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{user_token}}",
-                      "type": "string"
-                    }
-                  ]
+                  "bearer": {
+                    "token": "{{user_token}}"
+                  }
                 },
-                "method": "GET",
-                "header": []
+                "method": "DELETE",
+                "header": [],
+                "url": "http://localhost:8081/api/cart/remove/5"
               },
               "response": []
             },
@@ -652,39 +483,22 @@
               "request": {
                 "auth": {
                   "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{user_token}}",
-                      "type": "string"
-                    }
-                  ]
+                  "bearer": {
+                    "token": "{{user_token}}"
+                  }
                 },
                 "method": "PUT",
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n    \"quantity\": 4\n}",
+                  "raw": "{\n    \"quantity\": 3\n}",
                   "options": {
                     "raw": {
                       "language": "json"
                     }
                   }
                 },
-                "url": {
-                  "raw": "http://localhost:8081/api/cart/update/",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8081",
-                  "path": [
-                    "api",
-                    "cart",
-                    "update",
-                    ""
-                  ]
-                }
+                "url": "http://localhost:8081/api/cart/update/58"
               },
               "response": []
             }
@@ -698,16 +512,13 @@
               "request": {
                 "auth": {
                   "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{user_token}}",
-                      "type": "string"
-                    }
-                  ]
+                  "bearer": {
+                    "token": "{{user_token}}"
+                  }
                 },
                 "method": "GET",
-                "header": []
+                "header": [],
+                "url": "http://localhost:8081/api/addresses"
               },
               "response": []
             },
@@ -716,13 +527,9 @@
               "request": {
                 "auth": {
                   "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{user_token}}",
-                      "type": "string"
-                    }
-                  ]
+                  "bearer": {
+                    "token": "{{user_token}}"
+                  }
                 },
                 "method": "POST",
                 "header": [
@@ -737,28 +544,17 @@
                   "formdata": [
                     {
                       "key": "address_line_1",
-                      "value": "546",
+                      "value": "Советскуа",
                       "type": "text"
                     },
                     {
                       "key": "city",
-                      "value": "54654",
+                      "value": "Москва",
                       "type": "text"
                     }
                   ]
                 },
-                "url": {
-                  "raw": "http://localhost:8081/api/addresses",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8081",
-                  "path": [
-                    "api",
-                    "addresses"
-                  ]
-                }
+                "url": "http://localhost:8081/api/addresses"
               },
               "response": []
             },
@@ -767,16 +563,13 @@
               "request": {
                 "auth": {
                   "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{user_token}}",
-                      "type": "string"
-                    }
-                  ]
+                  "bearer": {
+                    "token": "{{user_token}}"
+                  }
                 },
                 "method": "GET",
-                "header": []
+                "header": [],
+                "url": "http://localhost:8081/api/addresses/4"
               },
               "response": []
             },
@@ -785,16 +578,22 @@
               "request": {
                 "auth": {
                   "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{user_token}}",
-                      "type": "string"
-                    }
-                  ]
+                  "bearer": {
+                    "token": "{{user_token}}"
+                  }
                 },
-                "method": "GET",
-                "header": []
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"address_line_1\": \"Мира 26\",\n    \"city\": \"Миснк\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "http://localhost:8081/api/addresses/21"
               },
               "response": []
             },
@@ -803,16 +602,13 @@
               "request": {
                 "auth": {
                   "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{user_token}}",
-                      "type": "string"
-                    }
-                  ]
+                  "bearer": {
+                    "token": "{{user_token}}"
+                  }
                 },
-                "method": "GET",
-                "header": []
+                "method": "DELETE",
+                "header": [],
+                "url": "http://localhost:8081/api/addresses/20"
               },
               "response": []
             }
@@ -826,29 +622,13 @@
               "request": {
                 "auth": {
                   "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{user_token}}",
-                      "type": "string"
-                    }
-                  ]
+                  "bearer": {
+                    "token": "{{user_token}}"
+                  }
                 },
                 "method": "GET",
                 "header": [],
-                "url": {
-                  "raw": "http://localhost:8081/api/orders/",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8081",
-                  "path": [
-                    "api",
-                    "orders",
-                    ""
-                  ]
-                }
+                "url": "http://localhost:8081/api/orders/"
               },
               "response": []
             },
@@ -857,13 +637,9 @@
               "request": {
                 "auth": {
                   "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{user_token}}",
-                      "type": "string"
-                    }
-                  ]
+                  "bearer": {
+                    "token": "{{user_token}}"
+                  }
                 },
                 "method": "POST",
                 "header": [
@@ -882,19 +658,7 @@
                     }
                   }
                 },
-                "url": {
-                  "raw": "http://localhost:8081/api/orders/",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8081",
-                  "path": [
-                    "api",
-                    "orders",
-                    ""
-                  ]
-                }
+                "url": "http://localhost:8081/api/orders/"
               },
               "response": []
             },
@@ -903,16 +667,13 @@
               "request": {
                 "auth": {
                   "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{user_token}}",
-                      "type": "string"
-                    }
-                  ]
+                  "bearer": {
+                    "token": "{{user_token}}"
+                  }
                 },
                 "method": "GET",
-                "header": []
+                "header": [],
+                "url": "http://localhost:8081/api/orders/1"
               },
               "response": []
             }
@@ -929,8 +690,29 @@
             {
               "name": "Get Cart",
               "request": {
+                "auth": {
+                  "type": "noauth"
+                },
                 "method": "GET",
-                "header": []
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8081/api/cart?cart-id=b4ab6310-1a3e-43d9-b09f-6587bf70a037",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8081",
+                  "path": [
+                    "api",
+                    "cart"
+                  ],
+                  "query": [
+                    {
+                      "key": "cart-id",
+                      "value": "b4ab6310-1a3e-43d9-b09f-6587bf70a037"
+                    }
+                  ]
+                }
               },
               "response": []
             },
@@ -948,28 +730,20 @@
                     "type": "text"
                   }
                 ],
-                "url": {
-                  "raw": "http://localhost:8081/api/cart",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8081",
-                  "path": [
-                    "api",
-                    "cart"
-                  ]
-                }
+                "url": "http://localhost:8081/api/cart"
               },
               "response": []
             },
             {
               "name": "Add to Cart",
               "request": {
+                "auth": {
+                  "type": "noauth"
+                },
                 "method": "POST",
                 "header": [],
                 "url": {
-                  "raw": "http://localhost:8081/api/cart/add/",
+                  "raw": "http://localhost:8081/api/cart/add?cart-id=b4ab6310-1a3e-43d9-b09f-6587bf70a037",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -978,8 +752,13 @@
                   "path": [
                     "api",
                     "cart",
-                    "add",
-                    ""
+                    "add"
+                  ],
+                  "query": [
+                    {
+                      "key": "cart-id",
+                      "value": "b4ab6310-1a3e-43d9-b09f-6587bf70a037"
+                    }
                   ]
                 }
               },
@@ -992,7 +771,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "",
+                  "raw": "{\n    \"quantity\": 2\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1026,24 +805,7 @@
               "request": {
                 "method": "DELETE",
                 "header": [],
-                "url": {
-                  "raw": "http://localhost:8081/api/cart?cart-id=b4ab6310-1a3e-43d9-b09f-6587bf70a037/remove/73",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8081",
-                  "path": [
-                    "api",
-                    "cart"
-                  ],
-                  "query": [
-                    {
-                      "key": "cart-id",
-                      "value": "b4ab6310-1a3e-43d9-b09f-6587bf70a037/remove/73"
-                    }
-                  ]
-                }
+                "url": "http://localhost:8081/api/cart/remove/4cart-id=b4ab6310-1a3e-43d9-b09f-6587bf70a037"
               },
               "response": []
             }
@@ -1137,19 +899,7 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": {
-              "raw": "http://localhost:8081/api/products/5",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8081",
-              "path": [
-                "api",
-                "products",
-                "5"
-              ]
-            }
+            "url": "http://localhost:8081/api/products/50"
           },
           "response": []
         }
@@ -1162,7 +912,8 @@
           "name": "Get Categories",
           "request": {
             "method": "GET",
-            "header": []
+            "header": [],
+            "url": "http://localhost:8081/api/categories"
           },
           "response": []
         },
@@ -1170,7 +921,8 @@
           "name": "Get Category By Id",
           "request": {
             "method": "GET",
-            "header": []
+            "header": [],
+            "url": "http://localhost:8081/api/categories/2"
           },
           "response": []
         }
