@@ -5,7 +5,7 @@
 ## 🛠️ Установка и настройка
 
 ### 1. Клонируем репозиторий
-git clone https://github.com/your-username/your-repository.git
+git clone git@github.com:KirSavickiy/PizzaHub.git
 cd your-repository
 
 ### 2. Создаем файл окружения и настраиваем его
