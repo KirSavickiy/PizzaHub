@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "5dd3a4d3-1f1c-4b48-a7e0-37e612e08e3a",
+		"_postman_id": "cd97fb0a-776b-44bf-b29a-d9d163d40e7c",
 		"name": "PizzaHubRestApi",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "37887542"
@@ -786,14 +786,15 @@
 									}
 								},
 								"url": {
-									"raw": "{{app_url}}/api/cart/update?cart-id=b4ab6310-1a3e-43d9-b09f-6587bf70a037",
+									"raw": "{{app_url}}/api/cart/update/5?cart-id=b4ab6310-1a3e-43d9-b09f-6587bf70a037",
 									"host": [
 										"{{app_url}}"
 									],
 									"path": [
 										"api",
 										"cart",
-										"update"
+										"update",
+										"5"
 									],
 									"query": [
 										{
@@ -810,7 +811,24 @@
 							"request": {
 								"method": "DELETE",
 								"header": [],
-								"url": "http://localhost:8081/api/cart/remove/4cart-id=b4ab6310-1a3e-43d9-b09f-6587bf70a037"
+								"url": {
+									"raw": "{{app_url}}/api/cart/remove/6?cart-id=b4ab6310-1a3e-43d9-b09f-6587bf70a037",
+									"host": [
+										"{{app_url}}"
+									],
+									"path": [
+										"api",
+										"cart",
+										"remove",
+										"6"
+									],
+									"query": [
+										{
+											"key": "cart-id",
+											"value": "b4ab6310-1a3e-43d9-b09f-6587bf70a037"
+										}
+									]
+								}
 							},
 							"response": []
 						}
@@ -878,12 +896,10 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8081/api/products/?page=",
-							"protocol": "http",
+							"raw": "{{app_url}}/api/products/?page=",
 							"host": [
-								"localhost"
+								"{{app_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"api",
 								"products",
@@ -904,7 +920,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8081/api/products/50"
+						"url": "{{app_url}}/api/products/50"
 					},
 					"response": []
 				}
@@ -918,7 +934,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8081/api/categories"
+						"url": "{{app_url}}/api/categories"
 					},
 					"response": []
 				},
@@ -927,7 +943,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8081/api/categories/2"
+						"url": "{{app_url}}/api/categories/2"
 					},
 					"response": []
 				}
