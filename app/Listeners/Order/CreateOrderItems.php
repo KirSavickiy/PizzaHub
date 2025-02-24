@@ -5,7 +5,7 @@ namespace App\Listeners\Order;
 use App\Events\OrderCreated;
 use App\Exceptions\Order\OrderCreationException;
 use App\Models\OrderItem;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class CreateOrderItems
 {
@@ -23,6 +23,7 @@ class CreateOrderItems
     public function handle(OrderCreated $event): void
     {
         try {
+            DB::beginTransaction();
             $order = $event->order;
             $cartItems = $order->user->cart->items()->get();
 
@@ -34,12 +35,9 @@ class CreateOrderItems
                     'price' => $cartItem->price,
                 ]);
             }
+            DB::commit();
         } catch (\Exception $e) {
-            Log::error('Order item creation failed: ', [
-                'order_id' => $event->order->id,
-                'error' => $e->getMessage(),
-            ]);
-
+            DB::rollBack();
             throw new OrderCreationException("Failed to create order items" . $e->getMessage(), 500);
         }
     }
